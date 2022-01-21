@@ -28,6 +28,25 @@
       "react-app/jest"
     ]
   },
+  "xo":{
+	  "rules":{
+		"import/no-named-as-default": [0],
+		"import/extensions": [0],
+		"@typescript-eslint/naming-convention": [2, {
+			"selector": "default",
+			"format": ["camelCase", "PascalCase"]
+		}],
+		"unicorn/filename-case": [
+			2,
+			{
+				"case": "kebabCase",
+				"ignore": [
+					"setupTests.ts"
+				]
+			}
+		 ]
+	  }
+  },
   "browserslist": {
     "production": [
       ">0.2%",

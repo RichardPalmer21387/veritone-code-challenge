@@ -3,12 +3,12 @@ import Header from './components/header';
 
 function App() {
 	const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+		alignItems: 'center',
 		display: 'flex',
 		flexDirection: 'column',
-		alignItems: 'center',
+		height: '100%',
 		justifyContent: 'flex-start',
 		width: '100%',
-		height: '100%',
 	};
 
 	return (

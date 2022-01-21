@@ -2,20 +2,20 @@ import React from 'react';
 
 export function Header() {
 	const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
-		display: 'flex',
 		alignItems: 'center',
-		paddingLeft: '30px',
-		width: '100%',
-		height: '64px',
-		boxSizing: 'border-box',
 		backgroundColor: '#4D81B7',
-		textTransform: 'uppercase',
+		boxSizing: 'border-box',
+		color: 'white',
+		display: 'flex',
 		fontFamily: 'Dosis, san-serif',
 		fontSize: '18px',
 		fontStyle: 'normal',
 		fontWeight: 600,
+		height: '64px',
 		letterSpacing: '0.25px',
-		color: 'white',
+		paddingLeft: '30px',
+		textTransform: 'uppercase',
+		width: '100%',
 	};
 
 	return <header style={headerStyles} className="App-header">

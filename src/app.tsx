@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from './components/header';
 import ShoppingList from './components/shopping-list';
-import { ShoppingListProvider } from './contexts/shopping-list';
+import {ShoppingListProvider} from './contexts/shopping-list';
 
 const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	alignItems: 'center',

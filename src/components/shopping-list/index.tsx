@@ -1,6 +1,6 @@
 import {isEmpty} from 'lodash';
 import React, {useEffect} from 'react';
-import {ShoppingListActionTypes, useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list';
+import {ShoppingListActionTypes, useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
 import {headerStyles} from '../header';
 import Spinner from '../spinner';
 import AddFirstItemView from './add-first-item-view';

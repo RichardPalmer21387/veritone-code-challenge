@@ -1,6 +1,6 @@
 import {map} from 'lodash';
 import React from 'react';
-import {ShoppingListState} from '../../models/shopping-list';
+import {ShoppingListState} from '../../models/shopping-list-models';
 
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	return <div>

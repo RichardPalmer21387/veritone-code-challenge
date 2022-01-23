@@ -1,6 +1,6 @@
 import {Action} from '../utils/util-types';
 import {prepareContext} from '../utils/prepare-context';
-import {ShoppingListState} from '../models/shopping-list';
+import {ShoppingListState} from '../models/shopping-list-models';
 
 // State
 // =============================================================================

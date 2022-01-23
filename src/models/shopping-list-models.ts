@@ -5,7 +5,7 @@ export interface ShoppingListState {
 	listItems: ShoppingListItem[];
 }
 
-interface ShoppingListItem {
+export interface ShoppingListItem {
 	id: string;
 	modified: Moment;
 	name: string;

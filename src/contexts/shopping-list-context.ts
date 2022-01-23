@@ -1,6 +1,6 @@
 import {Action} from '../utils/util-types';
 import {prepareContext} from '../utils/prepare-context';
-import {ShoppingListState} from '../models/shopping-list-models';
+import {ShoppingListItem, ShoppingListState} from '../models/shopping-list-models';
 
 // State
 // =============================================================================
@@ -21,7 +21,7 @@ export enum ShoppingListActionTypes {
 export type DeleteShoppingItemAction = Action<ShoppingListActionTypes.DELETE_SHOPPING_ITEM, {itemId: string}>;
 export type LoadShoppingItemsAction = Action<ShoppingListActionTypes.LOAD_SHOPPING_ITEMS, {listItems: ShoppingListState['listItems']}>;
 export type PatchShoppingItemAction = Action<ShoppingListActionTypes.PATCH_SHOPPING_ITEM, {itemId: string}>;
-export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM, unknown>;
+export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
 
 // Interfaces & Types
 // =============================================================================

@@ -5,7 +5,7 @@ import {useAppState} from '../contexts/app-context';
 import {LoadShoppingItemsAction, ShoppingListActionTypes, useShoppingListDispatch} from '../contexts/shopping-list-context';
 import {IDBCursorWithShoppingListValues} from '../models/app-models';
 import {ShoppingListState} from '../models/shopping-list-models';
-import {VERITONE_SHOPPING_CART} from '../utils/use-indexeddb';
+import {VERITONE_SHOPPING_LIST, VERITONE_SHOPPING_LIST_OBJECT_STORE} from '../utils/use-indexeddb';
 
 // Service Hooks
 // =============================================================================
@@ -18,7 +18,7 @@ export function useLoadShoppingListService(dispatch: Dispatch<LoadShoppingItemsA
 			reject(new Error('Attempted access of localDB before initialization!'));
 		} else {
 			// Open our object store and then get a cursor list of all the different data items in the IDB to iterate through
-			const objectStore = localDB.transaction(VERITONE_SHOPPING_CART).objectStore(VERITONE_SHOPPING_CART);
+			const objectStore = localDB.transaction(VERITONE_SHOPPING_LIST).objectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE);
 			const listItems: ShoppingListState['listItems'] = [];
 			objectStore.openCursor().onsuccess = event => {
 				const cursor = (event.target as IDBRequest<IDBCursorWithShoppingListValues>).result;

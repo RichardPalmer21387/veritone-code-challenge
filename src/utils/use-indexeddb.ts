@@ -1,13 +1,14 @@
 import log from 'loglevel';
 import {AppActionTypes, useAppDispatch} from '../contexts/app-context';
 
-export const VERITONE_SHOPPING_CART = 'veritone-shopping-cart';
+export const VERITONE_SHOPPING_LIST = 'veritone-shopping-list';
+export const VERITONE_SHOPPING_LIST_OBJECT_STORE = 'veritone-shopping-list';
 const DB_VER = 1;
 
 export function useIndexedDb() {
 	const appDispatch = useAppDispatch();
 
-	const DBOpenRequest = window.indexedDB.open(VERITONE_SHOPPING_CART, DB_VER);
+	const DBOpenRequest = window.indexedDB.open(VERITONE_SHOPPING_LIST, DB_VER);
 	DBOpenRequest.addEventListener('error', event => {
 		appDispatch({
 			type: AppActionTypes.SHOW_ERROR_MESSAGE_SNACKBAR,
@@ -38,7 +39,7 @@ export function useIndexedDb() {
 
 		// Create an objectStore for this database
 
-		const objectStore = db.createObjectStore('veritone-shopping-list', {keyPath: 'id'});
+		const objectStore = db.createObjectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE, {keyPath: 'id'});
 
 		// Define what data items the objectStore will contain
 

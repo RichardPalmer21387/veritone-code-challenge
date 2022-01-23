@@ -6,6 +6,9 @@ import {difference, timer} from '../util';
 
 import {useLogGroups} from './log-groups';
 
+log.setDefaultLevel('info');
+window.log = log;
+
 export function useLoggerReducerWrapper<T, ActionType extends Action>(
 	reducer: Reducer<T, ActionType>,
 ): Reducer<T, ActionType> {

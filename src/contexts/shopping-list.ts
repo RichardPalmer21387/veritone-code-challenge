@@ -31,8 +31,12 @@ type ShoppingListAction = DeleteShoppingItemAction | LoadShoppingItemsAction | P
 // =============================================================================
 const reducer = (state: ShoppingListState, action: ShoppingListAction): ShoppingListState => {
 	switch (action.type) {
-		case ShoppingListActionTypes.DELETE_SHOPPING_ITEM:
 		case ShoppingListActionTypes.LOAD_SHOPPING_ITEMS:
+			return {
+				...state,
+				isLoading: false,
+			};
+		case ShoppingListActionTypes.DELETE_SHOPPING_ITEM:
 		case ShoppingListActionTypes.PATCH_SHOPPING_ITEM:
 		case ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM:
 		default:

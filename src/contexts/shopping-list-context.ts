@@ -18,10 +18,10 @@ export enum ShoppingListActionTypes {
 	PUT_NEW_SHOPPING_ITEM = 'PUT_NEW_SHOPPING_ITEM',
 }
 
-type DeleteShoppingItemAction = Action<ShoppingListActionTypes.DELETE_SHOPPING_ITEM, {itemId: string}>;
-type LoadShoppingItemsAction = Action<ShoppingListActionTypes.LOAD_SHOPPING_ITEMS>;
-type PatchShoppingItemAction = Action<ShoppingListActionTypes.PATCH_SHOPPING_ITEM, {itemId: string}>;
-type PutNewShoppingItemAction = Action<ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM, unknown>;
+export type DeleteShoppingItemAction = Action<ShoppingListActionTypes.DELETE_SHOPPING_ITEM, {itemId: string}>;
+export type LoadShoppingItemsAction = Action<ShoppingListActionTypes.LOAD_SHOPPING_ITEMS, {listItems: ShoppingListState['listItems']}>;
+export type PatchShoppingItemAction = Action<ShoppingListActionTypes.PATCH_SHOPPING_ITEM, {itemId: string}>;
+export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM, unknown>;
 
 // Interfaces & Types
 // =============================================================================

@@ -1,10 +1,13 @@
 import log from 'loglevel';
 import {AppActionTypes, useAppDispatch} from '../contexts/app-context';
 
+export const VERITONE_SHOPPING_CART = 'veritone-shopping-cart';
+const DB_VER = 1;
+
 export function useIndexedDb() {
 	const appDispatch = useAppDispatch();
 
-	const DBOpenRequest = window.indexedDB.open('veritone-shopping-cart', 1);
+	const DBOpenRequest = window.indexedDB.open(VERITONE_SHOPPING_CART, DB_VER);
 	DBOpenRequest.addEventListener('error', event => {
 		appDispatch({
 			type: AppActionTypes.SHOW_ERROR_MESSAGE_SNACKBAR,
@@ -15,14 +18,15 @@ export function useIndexedDb() {
 
 	DBOpenRequest.onsuccess = () => {
 		// Sync the result of the databse with app state.
+		const db = DBOpenRequest.result;
 		appDispatch({
-			type: AppActionTypes.SHOW_ERROR_MESSAGE_SNACKBAR,
-			message: 'No Error loading local database.',
+			type: AppActionTypes.SET_LOCAL_DB,
+			db,
 		});
 	};
 
 	DBOpenRequest.onupgradeneeded = event => {
-		const db: IDBDatabase = (event.target as IDBOpenDBRequest)?.result; // Strange, event isn't picking up the target type correctly here.
+		const db: IDBDatabase = (event.target as IDBOpenDBRequest).result; // Strange, event isn't picking up the target type correctly here.
 
 		db.addEventListener('error', event => {
 			appDispatch({

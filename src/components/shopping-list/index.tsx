@@ -1,6 +1,7 @@
 import {isEmpty} from 'lodash';
 import React, {useEffect} from 'react';
-import {ShoppingListActionTypes, useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
+import {useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
+import {useLoadShoppingListService} from '../../services/shopping-list-services';
 import {headerStyles} from '../header';
 import Spinner from '../spinner';
 import AddFirstItemView from './add-first-item-view';
@@ -16,9 +17,10 @@ const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 export function ShoppingList() {
 	const {isLoading, listItems} = useShoppingListState();
 	const dispatch = useShoppingListDispatch();
+	const loadShoppingListItems = useLoadShoppingListService(dispatch);
 
 	useEffect(() => {
-		dispatch({type: ShoppingListActionTypes.LOAD_SHOPPING_ITEMS});
+		void loadShoppingListItems();
 	}, []);
 
 	return <main style={styles} className="shopping-list">

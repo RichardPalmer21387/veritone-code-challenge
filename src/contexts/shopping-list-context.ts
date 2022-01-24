@@ -1,3 +1,4 @@
+import {assign, map, reject} from 'lodash';
 import {Action} from '../utils/util-types';
 import {prepareContext} from '../utils/prepare-context';
 import {ShoppingListItem, ShoppingListState} from '../models/shopping-list-models';
@@ -34,11 +35,32 @@ const reducer = (state: ShoppingListState, action: ShoppingListAction): Shopping
 		case ShoppingListActionTypes.LOAD_SHOPPING_ITEMS:
 			return {
 				...state,
+				listItems: action.listItems,
 				isLoading: false,
 			};
-		case ShoppingListActionTypes.DELETE_SHOPPING_ITEM:
-		case ShoppingListActionTypes.PATCH_SHOPPING_ITEM:
 		case ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM:
+			return {
+				...state,
+				listItems: [
+					...state.listItems,
+					action.listItem,
+				],
+			};
+		case ShoppingListActionTypes.DELETE_SHOPPING_ITEM:
+			return {
+				...state,
+				listItems: reject(state.listItems, item => item.id === action.itemId),
+			};
+		case ShoppingListActionTypes.PATCH_SHOPPING_ITEM:
+			return {
+				...state,
+				listItems: map(
+					state.listItems,
+					item => item.id === action.listItem.id
+						? assign(item, action.listItem)
+						: item,
+				),
+			};
 		default:
 			return state;
 	}

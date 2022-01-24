@@ -1,6 +1,6 @@
 import {Button} from '@mui/material';
-import log from 'loglevel';
 import React from 'react';
+import {Link} from 'react-router-dom';
 
 const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	display: 'flex',
@@ -18,13 +18,11 @@ export function AddFirstItemView() {
 	return <div style={styles} className="add-first-item">
 		<div>Your shopping list is empty :(</div>
 		<div>
-			<Button
-				onClick={() => {
-					log.info('Add new item');
-				}}
-			>
-				Add your first item
-			</Button>
+			<Link to="/add-new-item">
+				<Button>
+					Add your first item
+				</Button>
+			</Link>
 		</div>
 	</div>;
 }

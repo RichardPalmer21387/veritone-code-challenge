@@ -120,6 +120,7 @@ export function useDeleteShoppingListItemService(dispatch: Dispatch<DeleteShoppi
 			};
 
 			transaction.addEventListener('error', () => {
+				log.error(transaction.error);
 				reject(transaction.error);
 			});
 		}

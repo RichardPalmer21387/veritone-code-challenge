@@ -36,6 +36,7 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 	const dispatch = useShoppingListDispatch();
 	const deleteShoppingListItem = useDeleteShoppingListItemService(dispatch);
 	const handleDelete = (id: ShoppingListItem['id']) => () => {
+		setModalOpen(false);
 		void deleteShoppingListItem(id);
 	};
 

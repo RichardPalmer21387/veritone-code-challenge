@@ -1,21 +1,21 @@
+import {Drawer} from '@mui/material';
 import React, {PropsWithChildren} from 'react';
 
-const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
-	position: 'absolute',
-	top: '0px',
-	right: '0px',
-	bottom: '0px',
-	background: 'white',
-	maxWidth: '560px',
-};
+const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {};
 
-export function SlideInView({children}: PropsWithChildren<unknown>) {
-	return <div style={styles} className="slide-in-view">
+export function SlideInView({children, open}: PropsWithChildren<{open: boolean}>) {
+	return <Drawer
+		anchor="right"
+		style={styles}
+		className="slide-in-view"
+		hideBackdrop
+		open={open}
+	>
 		<header>
 			Shopping List
 		</header>
 		{children}
-	</div>;
+	</Drawer>;
 }
 
 export default SlideInView;

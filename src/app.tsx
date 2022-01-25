@@ -1,5 +1,6 @@
+import {isNil} from 'lodash';
 import React from 'react';
-import {BrowserRouter, Route, Routes} from 'react-router-dom';
+import {matchPath, useLocation} from 'react-router-dom';
 import {ErrorSnackbar} from './components/error-snackbar';
 import Header from './components/header';
 import ShoppingList from './components/shopping-list';
@@ -19,22 +20,23 @@ const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 
 export function App() {
 	useIndexedDb();
-	return <BrowserRouter>
-		<div className="App" style={styles}>
-			<Header />
-			<ShoppingListProvider>
-				<ShoppingList />
-				<Routes>
-					<Route path="/add-new-item" element={
-						<SlideInView>
-							<AddItemForm />
-						</SlideInView>
-					} />
-				</Routes>
-			</ShoppingListProvider>
-			<ErrorSnackbar />
-		</div>
-	</BrowserRouter>;
+	const location = useLocation();
+	const addItemViewMatchPath = matchPath('/add-new-item', location.pathname);
+	const editItemViewMatchPath = matchPath('/edit-list-item/:id', location.pathname);
+
+	return <div className="App" style={styles}>
+		<Header />
+		<ShoppingListProvider>
+			<ShoppingList />
+			<SlideInView open={!isNil(addItemViewMatchPath)}>
+				<AddItemForm />
+			</SlideInView>
+			<SlideInView open={!isNil(editItemViewMatchPath)}>
+				<AddItemForm />
+			</SlideInView>
+		</ShoppingListProvider>
+		<ErrorSnackbar />
+	</div>;
 }
 
 export default App;

@@ -55,7 +55,7 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 		<Link to="/add-new-item">
 			<Button>Add Item</Button>
 		</Link>
-		{map(listItems, item => <ListItem {...item} handleDelete={openDeleteModal(item.id)} />)}
+		{map(listItems, item => <ListItem key={item.id} {...item} handleDelete={openDeleteModal(item.id)} />)}
 		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteId ? handleDelete(toDeleteId) : noop} />
 	</div>;
 }

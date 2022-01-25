@@ -12,7 +12,7 @@ export function AddItemForm() {
 	const navigate = useNavigate();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
-	const [quantity, setQuantity] = useState<number | null>(null);
+	const [quantity, setQuantity] = useState<string>('');
 
 	const [nameValid, setNameValidation] = useState(true);
 	const [descriptionValid, setDescriptionValidation] = useState(true);
@@ -42,7 +42,7 @@ export function AddItemForm() {
 		void putNewShoppingListItem({
 			name,
 			description,
-			quantity: quantity!,
+			quantity: Number(quantity),
 		});
 	};
 
@@ -82,7 +82,7 @@ export function AddItemForm() {
 				value={quantity}
 				color={quantityValid ? 'primary' : 'error'}
 				onChange={event => {
-					setQuantity(Number(event.target.value));
+					setQuantity(event.target.value);
 				}}
 			>
 				<MenuItem value={1}>1</MenuItem>

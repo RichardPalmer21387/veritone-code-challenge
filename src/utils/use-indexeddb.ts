@@ -4,7 +4,7 @@ import {AppActionTypes, useAppDispatch} from '../contexts/app-context';
 
 export const VERITONE_SHOPPING_LIST = 'veritone-shopping-list';
 export const VERITONE_SHOPPING_LIST_OBJECT_STORE = 'veritone-shopping-list';
-const DB_VER = 1;
+const DB_VER = 4;
 
 export function useIndexedDb() {
 	const appDispatch = useAppDispatch();
@@ -39,6 +39,10 @@ export function useIndexedDb() {
 					log.error(event);
 				});
 
+				if (db.objectStoreNames.contains(VERITONE_SHOPPING_LIST_OBJECT_STORE)) {
+					db.deleteObjectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE);
+				}
+
 				// Create an objectStore for this database
 
 				const objectStore = db.createObjectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE, {keyPath: 'id'});
@@ -49,6 +53,7 @@ export function useIndexedDb() {
 				objectStore.createIndex('name', 'name', {unique: false});
 				objectStore.createIndex('description', 'description', {unique: false});
 				objectStore.createIndex('quantity', 'quantity', {unique: false});
+				objectStore.createIndex('purchased', 'purchased', {unique: false});
 			};
 		},
 		[],

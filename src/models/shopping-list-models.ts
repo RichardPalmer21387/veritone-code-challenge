@@ -11,6 +11,7 @@ export interface ShoppingListItem {
 	name: string;
 	description: string;
 	quantity: number;
+	purchased: boolean;
 }
 
 export type PartialShoppingListItem = Pick<ShoppingListItem, 'description' | 'name' | 'quantity'>;

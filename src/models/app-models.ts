@@ -10,5 +10,6 @@ export interface IDBCursorWithShoppingListValues extends IDBCursor {
 		name: string;
 		description: string;
 		quantity: number;
+		purchased: boolean;
 	};
 }

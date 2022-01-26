@@ -1,10 +1,10 @@
-import {Button} from '@mui/material';
+import {Button, Checkbox} from '@mui/material';
 import {map, noop} from 'lodash';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
-import {useDeleteShoppingListItemService} from '../../services/shopping-list-services';
+import {useDeleteShoppingListItemService, usePatchShoppingListItemService} from '../../services/shopping-list-services';
 import {Icon} from '../icon';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 
@@ -12,11 +12,18 @@ function ListItem({
 	id,
 	name,
 	description,
+	purchased,
 	handleDelete,
+	handlePurchasedToggle,
 }: {
 	handleDelete: () => void;
+	handlePurchasedToggle: () => void;
 } & ShoppingListItem) {
 	return <div>
+		<Checkbox
+			checked={purchased}
+			onChange={handlePurchasedToggle}
+		/>
 		<span>{name}</span>
 		<span>{description}</span>
 		<Link to={`/edit-list-item/${id}`}>
@@ -35,9 +42,17 @@ function ListItem({
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	const dispatch = useShoppingListDispatch();
 	const deleteShoppingListItem = useDeleteShoppingListItemService(dispatch);
+	const patchShoppingListItem = usePatchShoppingListItemService(dispatch);
 	const handleDelete = (id: ShoppingListItem['id']) => () => {
 		setModalOpen(false);
 		void deleteShoppingListItem(id);
+	};
+
+	const handlePurchasedToggle = (listItem: ShoppingListItem) => () => {
+		void patchShoppingListItem({
+			...listItem,
+			purchased: !listItem.purchased,
+		});
 	};
 
 	const [modalOpen, setModalOpen] = useState(false);
@@ -56,7 +71,15 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 		<Link to="/add-new-item">
 			<Button>Add Item</Button>
 		</Link>
-		{map(listItems, item => <ListItem key={item.id} {...item} handleDelete={openDeleteModal(item.id)} />)}
+		{map(
+			listItems,
+			item => <ListItem
+				key={item.id}
+				{...item}
+				handlePurchasedToggle={handlePurchasedToggle(item)}
+				handleDelete={openDeleteModal(item.id)}
+			/>,
+		)}
 		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteId ? handleDelete(toDeleteId) : noop} />
 	</div>;
 }

@@ -31,6 +31,7 @@ export function useLoadShoppingListService(dispatch: Dispatch<LoadShoppingItemsA
 						name: cursor.value.name,
 						description: cursor.value.description,
 						quantity: cursor.value.quantity,
+						purchased: cursor.value.purchased,
 					});
 					cursor.continue();
 				} else {
@@ -60,6 +61,7 @@ export function usePutNewShoppingListItemService(dispatch: Dispatch<PutNewShoppi
 				name: newPartialListItem.name,
 				description: newPartialListItem.description,
 				quantity: newPartialListItem.quantity,
+				purchased: false,
 			};
 			// Open a read/write db transaction, ready for adding the data
 			const transaction = localDB.transaction([VERITONE_SHOPPING_LIST], 'readwrite');
@@ -168,6 +170,7 @@ export function usePatchShoppingListItemService(dispatch: Dispatch<PatchShopping
 					name: patchListItem.name,
 					description: patchListItem.description,
 					quantity: patchListItem.quantity,
+					purchased: patchListItem.purchased,
 				});
 			};
 		}

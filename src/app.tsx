@@ -5,7 +5,7 @@ import {ErrorSnackbar} from './components/error-snackbar';
 import Header from './components/header';
 import ShoppingList from './components/shopping-list';
 import SlideInView from './components/slide-in-view';
-import AddItemForm from './components/slide-in-view/add-item-form.tsx';
+import AddEditItemForm from './components/slide-in-view/add-edit-item-form';
 import {ShoppingListProvider} from './contexts/shopping-list-context';
 import {useIndexedDb} from './utils/use-indexeddb';
 
@@ -29,10 +29,10 @@ export function App() {
 		<ShoppingListProvider>
 			<ShoppingList />
 			<SlideInView open={!isNil(addItemViewMatchPath)}>
-				<AddItemForm />
+				<AddEditItemForm />
 			</SlideInView>
 			<SlideInView open={!isNil(editItemViewMatchPath)}>
-				<AddItemForm />
+				<AddEditItemForm id={editItemViewMatchPath?.params.id} />
 			</SlideInView>
 		</ShoppingListProvider>
 		<ErrorSnackbar />

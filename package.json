@@ -81,9 +81,17 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+	"ignore":[
+	  "./config",
+	  "./scripts"
+	]
   },
   "xo": {
+	"ignore":[
+	  "./config",
+	  "./scripts"
+	],
     "rules": {
       "import/no-named-as-default": [
         0

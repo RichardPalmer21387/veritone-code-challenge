@@ -1,4 +1,4 @@
-import {isEmpty, isNil} from 'lodash';
+import {isEmpty, isNil, reject} from 'lodash';
 import log from 'loglevel';
 import React, {useEffect} from 'react';
 import {useAppState} from '../../contexts/app-context';
@@ -35,7 +35,7 @@ export function ShoppingList() {
 		{
 			isLoading
 				? <Spinner />
-				: (isEmpty(listItems)
+				: (isEmpty(reject(listItems, 'deleted'))
 					? <AddFirstItemView />
 					: <ListItemsView listItems={listItems} />)
 		}

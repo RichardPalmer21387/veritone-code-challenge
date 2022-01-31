@@ -1,10 +1,10 @@
 import {Button, Checkbox} from '@mui/material';
-import {map, noop} from 'lodash';
+import {map, noop, reject} from 'lodash';
 import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
-import {useDeleteShoppingListItemService, usePutShoppingListItemService} from '../../services/shopping-list-services';
+import {usePutShoppingListItemService} from '../../services/shopping-list-services';
 import {Icon} from '../icon';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 
@@ -41,11 +41,13 @@ function ListItem({
 
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	const dispatch = useShoppingListDispatch();
-	const deleteShoppingListItem = useDeleteShoppingListItemService(dispatch);
 	const putShoppingListItem = usePutShoppingListItemService(dispatch);
-	const handleDelete = (id: ShoppingListItem['id']) => () => {
+	const handleDelete = (listItem: ShoppingListItem) => () => {
 		setModalOpen(false);
-		void deleteShoppingListItem(id);
+		void putShoppingListItem({
+			...listItem,
+			deleted: true,
+		});
 	};
 
 	const handlePurchasedToggle = (listItem: ShoppingListItem) => () => {
@@ -56,14 +58,14 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 	};
 
 	const [modalOpen, setModalOpen] = useState(false);
-	const [toDeleteId, setToDeleteId] = useState<string | null>(null);
+	const [toDeleteItem, setToDeleteItem] = useState<ShoppingListItem | null>(null);
 	const closeModal = () => {
 		setModalOpen(false);
 	};
 
-	const openDeleteModal = (id: ShoppingListItem['id']) => () => {
+	const openDeleteModal = (listItem: ShoppingListItem) => () => {
 		setModalOpen(true);
-		setToDeleteId(id);
+		setToDeleteItem(listItem);
 	};
 
 	return <div>
@@ -72,15 +74,15 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 			<Button>Add Item</Button>
 		</Link>
 		{map(
-			listItems,
+			reject(listItems, 'deleted'),
 			item => <ListItem
 				key={item.id}
 				{...item}
 				handlePurchasedToggle={handlePurchasedToggle(item)}
-				handleDelete={openDeleteModal(item.id)}
+				handleDelete={openDeleteModal(item)}
 			/>,
 		)}
-		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteId ? handleDelete(toDeleteId) : noop} />
+		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteItem ? handleDelete(toDeleteItem) : noop} />
 	</div>;
 }
 

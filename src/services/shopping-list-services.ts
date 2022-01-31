@@ -1,4 +1,4 @@
-import {filter, isEmpty, isNil, map} from 'lodash';
+import {filter, findIndex, isEmpty, isNil, map} from 'lodash';
 import log from 'loglevel';
 import moment, {Moment} from 'moment';
 import {Dispatch, useCallback} from 'react';
@@ -90,7 +90,13 @@ export function useLoadShoppingListService(dispatch: Dispatch<LoadShoppingItemsA
 									// Report on the success of the transaction completing, when everything is done
 									transaction.oncomplete = () => {
 										log.info('Successfully added new item from sync.', newListItem);
-										listItems.push(newListItem);
+										const existingIndex = findIndex(listItems, item => item.id === newListItem.id);
+										if (existingIndex >= 0) {
+											listItems[existingIndex] = newListItem;
+										} else {
+											listItems.push(newListItem);
+										}
+
 										resolve();
 									};
 

@@ -10,7 +10,7 @@ router.get('/sync/:modified', async (request, response) => {
 	const {modified} = request.params;
 	const {rows} = await db.query('SELECT * FROM shoppinglistitems WHERE modified > $1', [modified]);
 	if (isEmpty(rows)) {
-		const {rows: syncRows} = await db.query('SELECT * FROM shoppinglistitems ORDER BY modified DESC');
+		const {rows: syncRows} = await db.query('SELECT modified FROM shoppinglistitems ORDER BY modified DESC limit 1');
 		if (isEmpty(syncRows)) {
 			response.json({modified: moment(0).toISOString()});
 		} else {

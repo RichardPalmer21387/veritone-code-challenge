@@ -4,7 +4,7 @@ import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch, useShoppingListState} from '../../../contexts/shopping-list-context';
 import {ShoppingListItem} from '../../../models/shopping-list-models';
-import {usePatchShoppingListItemService, usePutNewShoppingListItemService} from '../../../services/shopping-list-services';
+import {usePutShoppingListItemService, usePostNewShoppingListItemService} from '../../../services/shopping-list-services';
 
 function CommonFormElements({
 	name,
@@ -76,7 +76,7 @@ function CommonFormElements({
 
 function AddItemForm() {
 	const dispatch = useShoppingListDispatch();
-	const putNewShoppingListItem = usePutNewShoppingListItemService(dispatch);
+	const postNewShoppingListItem = usePostNewShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
 	const [name, setName] = useState<string>('');
@@ -108,7 +108,7 @@ function AddItemForm() {
 			return;
 		}
 
-		void putNewShoppingListItem({
+		void postNewShoppingListItem({
 			name,
 			description,
 			quantity: Number(quantity),
@@ -149,7 +149,7 @@ function EditItemForm({
 	item: ShoppingListItem;
 }) {
 	const dispatch = useShoppingListDispatch();
-	const patchShoppingListItem = usePatchShoppingListItemService(dispatch);
+	const putShoppingListItem = usePutShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
 	const [name, setName] = useState<string>(item.name);
@@ -182,7 +182,7 @@ function EditItemForm({
 			return;
 		}
 
-		void patchShoppingListItem({
+		void putShoppingListItem({
 			...item,
 			name,
 			description,
@@ -244,7 +244,7 @@ export function AddEditItemForm({
 	if (id) {
 		const itemToEdit = find(
 			shoppingListState.listItems,
-			item => item.id === id,
+			item => item.id.toString() === id,
 		);
 		if (isNil(itemToEdit)) {
 			return <>No shopping list item with ID found!</>;

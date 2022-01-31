@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
-import {useDeleteShoppingListItemService, usePatchShoppingListItemService} from '../../services/shopping-list-services';
+import {useDeleteShoppingListItemService, usePutShoppingListItemService} from '../../services/shopping-list-services';
 import {Icon} from '../icon';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 
@@ -42,14 +42,14 @@ function ListItem({
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	const dispatch = useShoppingListDispatch();
 	const deleteShoppingListItem = useDeleteShoppingListItemService(dispatch);
-	const patchShoppingListItem = usePatchShoppingListItemService(dispatch);
+	const putShoppingListItem = usePutShoppingListItemService(dispatch);
 	const handleDelete = (id: ShoppingListItem['id']) => () => {
 		setModalOpen(false);
 		void deleteShoppingListItem(id);
 	};
 
 	const handlePurchasedToggle = (listItem: ShoppingListItem) => () => {
-		void patchShoppingListItem({
+		void putShoppingListItem({
 			...listItem,
 			purchased: !listItem.purchased,
 		});

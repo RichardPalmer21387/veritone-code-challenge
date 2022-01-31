@@ -1,4 +1,5 @@
 import {isEmpty, isNil} from 'lodash';
+import log from 'loglevel';
 import React, {useEffect} from 'react';
 import {useAppState} from '../../contexts/app-context';
 import {useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
@@ -23,9 +24,12 @@ export function ShoppingList() {
 
 	useEffect(() => {
 		if (!isNil(localDB)) {
-			void loadShoppingListItems();
+			loadShoppingListItems()
+				.catch(error => {
+					log.error('Failed loading shopping list items.', error);
+				});
 		}
-	}, [localDB]);
+	}, [localDB, loadShoppingListItems]);
 
 	return <main style={styles} className="shopping-list">
 		{

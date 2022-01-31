@@ -36,3 +36,7 @@ export const timer = typeof performance !== 'undefined'
 && typeof performance.now === 'function'
 	? performance
 	: Date;
+
+export const fetchHeaders = {
+	'Content-Type': 'application/json',
+};

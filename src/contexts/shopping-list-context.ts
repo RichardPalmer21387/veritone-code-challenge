@@ -15,14 +15,14 @@ const initialState: ShoppingListState = {
 export enum ShoppingListActionTypes {
 	DELETE_SHOPPING_ITEM = 'DELETE_SHOPPING_ITEM',
 	LOAD_SHOPPING_ITEMS = 'LOAD_SHOPPING_ITEMS',
-	PATCH_SHOPPING_ITEM = 'PATCH_SHOPPING_ITEM',
-	PUT_NEW_SHOPPING_ITEM = 'PUT_NEW_SHOPPING_ITEM',
+	PUT_SHOPPING_ITEM = 'PUT_SHOPPING_ITEM',
+	POST_NEW_SHOPPING_ITEM = 'POST_NEW_SHOPPING_ITEM',
 }
 
 export type DeleteShoppingItemAction = Action<ShoppingListActionTypes.DELETE_SHOPPING_ITEM, {itemId: string}>;
 export type LoadShoppingItemsAction = Action<ShoppingListActionTypes.LOAD_SHOPPING_ITEMS, {listItems: ShoppingListState['listItems']}>;
-export type PatchShoppingItemAction = Action<ShoppingListActionTypes.PATCH_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
-export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
+export type PatchShoppingItemAction = Action<ShoppingListActionTypes.PUT_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
+export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.POST_NEW_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
 
 // Interfaces & Types
 // =============================================================================
@@ -38,7 +38,7 @@ const reducer = (state: ShoppingListState, action: ShoppingListAction): Shopping
 				listItems: action.listItems,
 				isLoading: false,
 			};
-		case ShoppingListActionTypes.PUT_NEW_SHOPPING_ITEM:
+		case ShoppingListActionTypes.POST_NEW_SHOPPING_ITEM:
 			return {
 				...state,
 				listItems: [
@@ -51,7 +51,7 @@ const reducer = (state: ShoppingListState, action: ShoppingListAction): Shopping
 				...state,
 				listItems: reject(state.listItems, item => item.id === action.itemId),
 			};
-		case ShoppingListActionTypes.PATCH_SHOPPING_ITEM:
+		case ShoppingListActionTypes.PUT_SHOPPING_ITEM:
 			return {
 				...state,
 				listItems: map(

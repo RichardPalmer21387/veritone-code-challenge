@@ -1,4 +1,4 @@
-import {Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, TextField} from '@mui/material';
+import {Button, Checkbox, FormControl, FormControlLabel, Grid, InputLabel, MenuItem, Select, TextField, useTheme} from '@mui/material';
 import {find, isEmpty, isNil} from 'lodash';
 import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -28,49 +28,55 @@ function CommonFormElements({
 	setQuantity: React.Dispatch<React.SetStateAction<string>>;
 }) {
 	return <>
-		<FormControl fullWidth>
-			<TextField
-				id="name"
-				label="Name"
-				variant="outlined"
-				value={name}
-				color={nameValid ? 'primary' : 'error'}
-				onChange={event => {
-					setName(event.target.value);
-				}}
-			/>
-		</FormControl>
-		<FormControl fullWidth>
-			<TextField
-				id="description"
-				label="Description"
-				multiline
-				variant="outlined"
-				value={description}
-				color={descriptionValid ? 'primary' : 'error'}
-				onChange={event => {
-					setDescription(event.target.value);
-				}}
-			/>
-		</FormControl>
-		<FormControl fullWidth>
-			<InputLabel id="quantity-label">How many?</InputLabel>
-			<Select
-				labelId="quantity-label"
-				id="quantity"
-				label="How many?"
-				placeholder="How many?"
-				value={quantity}
-				color={quantityValid ? 'primary' : 'error'}
-				onChange={event => {
-					setQuantity(event.target.value);
-				}}
-			>
-				<MenuItem value={1}>1</MenuItem>
-				<MenuItem value={2}>2</MenuItem>
-				<MenuItem value={3}>3</MenuItem>
-			</Select>
-		</FormControl>
+		<Grid item xs={12}>
+			<FormControl fullWidth>
+				<TextField
+					id="name"
+					label="Name"
+					variant="outlined"
+					value={name}
+					color={nameValid ? 'primary' : 'error'}
+					onChange={event => {
+						setName(event.target.value);
+					}}
+				/>
+			</FormControl>
+		</Grid>
+		<Grid item xs={12}>
+			<FormControl fullWidth>
+				<TextField
+					id="description"
+					label="Description"
+					multiline
+					variant="outlined"
+					value={description}
+					color={descriptionValid ? 'primary' : 'error'}
+					onChange={event => {
+						setDescription(event.target.value);
+					}}
+				/>
+			</FormControl>
+		</Grid>
+		<Grid item xs={12}>
+			<FormControl fullWidth>
+				<InputLabel id="quantity-label">How many?</InputLabel>
+				<Select
+					labelId="quantity-label"
+					id="quantity"
+					label="How many?"
+					placeholder="How many?"
+					value={quantity}
+					color={quantityValid ? 'primary' : 'error'}
+					onChange={event => {
+						setQuantity(event.target.value);
+					}}
+				>
+					<MenuItem value={1}>1</MenuItem>
+					<MenuItem value={2}>2</MenuItem>
+					<MenuItem value={3}>3</MenuItem>
+				</Select>
+			</FormControl>
+		</Grid>
 	</>;
 }
 
@@ -79,6 +85,7 @@ function AddItemForm() {
 	const postNewShoppingListItem = usePostNewShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
+	const {spacing} = useTheme();
 	const [name, setName] = useState<string>('');
 	const [description, setDescription] = useState<string>('');
 	const [quantity, setQuantity] = useState<string>('');
@@ -115,7 +122,7 @@ function AddItemForm() {
 		});
 	};
 
-	return <>
+	return <Grid container spacing={spacing()}>
 		<CommonFormElements
 			name={name}
 			nameValid={nameValid}
@@ -127,20 +134,22 @@ function AddItemForm() {
 			setDescription={setDescription}
 			setQuantity={setQuantity}
 		/>
-		<Button
-			onClick={() => {
-				navigate('/');
-			}}
-			color="secondary"
-		>
-			Cancel
-		</Button>
-		<Button
-			onClick={handleAdd}
-		>
-			Add Task
-		</Button>
-	</>;
+		<Grid item xs={12}>
+			<Button
+				onClick={() => {
+					navigate('/');
+				}}
+				color="secondary"
+			>
+				Cancel
+			</Button>
+			<Button
+				onClick={handleAdd}
+			>
+				Add Task
+			</Button>
+		</Grid>
+	</Grid>;
 }
 
 function EditItemForm({
@@ -152,6 +161,7 @@ function EditItemForm({
 	const putShoppingListItem = usePutShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
+	const {spacing} = useTheme();
 	const [name, setName] = useState<string>(item.name);
 	const [description, setDescription] = useState<string>(item.description);
 	const [quantity, setQuantity] = useState<string>(item.quantity.toString());
@@ -191,7 +201,7 @@ function EditItemForm({
 		});
 	};
 
-	return <>
+	return <Grid container spacing={spacing()}>
 		<CommonFormElements
 			name={name}
 			nameValid={nameValid}
@@ -203,35 +213,39 @@ function EditItemForm({
 			setDescription={setDescription}
 			setQuantity={setQuantity}
 		/>
-		<FormControl
-			fullWidth
-		>
-			<FormControlLabel
-				label="Purchased"
-				control={
-					<Checkbox
-						checked={purchased}
-						onChange={() => {
-							setPurchased(!purchased);
-						}}
-					/>
-				}
-			/>
-		</FormControl>
-		<Button
-			onClick={() => {
-				navigate('/');
-			}}
-			color="secondary"
-		>
-			Cancel
-		</Button>
-		<Button
-			onClick={handleAdd}
-		>
-			Save Item
-		</Button>
-	</>;
+		<Grid item xs={12}>
+			<FormControl
+				fullWidth
+			>
+				<FormControlLabel
+					label="Purchased"
+					control={
+						<Checkbox
+							checked={purchased}
+							onChange={() => {
+								setPurchased(!purchased);
+							}}
+						/>
+					}
+				/>
+			</FormControl>
+		</Grid>
+		<Grid item xs={12}>
+			<Button
+				onClick={() => {
+					navigate('/');
+				}}
+				color="secondary"
+			>
+				Cancel
+			</Button>
+			<Button
+				onClick={handleAdd}
+			>
+				Save Item
+			</Button>
+		</Grid>
+	</Grid>;
 }
 
 export function AddEditItemForm({

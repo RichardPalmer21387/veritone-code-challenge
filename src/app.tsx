@@ -1,3 +1,4 @@
+import {createTheme, ThemeProvider} from '@mui/material';
 import {isNil} from 'lodash';
 import React from 'react';
 import {matchPath, useLocation} from 'react-router-dom';
@@ -24,18 +25,42 @@ export function App() {
 	const addItemViewMatchPath = matchPath('/add-new-item', location.pathname);
 	const editItemViewMatchPath = matchPath('/edit-list-item/:id', location.pathname);
 
+	const theme = createTheme({
+		palette: {
+			primary: {
+				main: '#1871E8',
+				light: '#4D81B7',
+			},
+			secondary: {
+				main: '#FFFFFF',
+				contrastText: '#2A323C',
+			},
+			info: {
+				main: '#FFFFFF',
+				dark: '#9CA8B4',
+				contrastText: '#9CA8B4',
+			},
+		},
+		typography: {
+			fontFamily: '\'Nunito\', sans-serif',
+		},
+		spacing: 12,
+	});
+
 	return <div className="App" style={styles}>
-		<Header />
-		<ShoppingListProvider>
-			<ShoppingList />
-			<SlideInView open={!isNil(addItemViewMatchPath)}>
-				<AddEditItemForm />
-			</SlideInView>
-			<SlideInView open={!isNil(editItemViewMatchPath)}>
-				<AddEditItemForm id={editItemViewMatchPath?.params.id} />
-			</SlideInView>
-		</ShoppingListProvider>
-		<ErrorSnackbar />
+		<ThemeProvider theme={theme}>
+			<Header />
+			<ShoppingListProvider>
+				<ShoppingList />
+				<SlideInView open={!isNil(addItemViewMatchPath)}>
+					<AddEditItemForm />
+				</SlideInView>
+				<SlideInView open={!isNil(editItemViewMatchPath)}>
+					<AddEditItemForm id={editItemViewMatchPath?.params.id} />
+				</SlideInView>
+			</ShoppingListProvider>
+			<ErrorSnackbar />
+		</ThemeProvider>
 	</div>;
 }
 

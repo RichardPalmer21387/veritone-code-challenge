@@ -1,9 +1,10 @@
-import {Button} from '@mui/material';
+import {Button, Typography} from '@mui/material';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
 const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	display: 'flex',
+	position: 'relative',
 	flexDirection: 'column',
 	justifyContent: 'center',
 	textAlign: 'center',
@@ -16,10 +17,20 @@ const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 
 export function AddFirstItemView() {
 	return <div style={styles} className="add-first-item">
-		<div>Your shopping list is empty :(</div>
+		<Typography
+			variant="h6"
+			color="#87898C"
+			style={{
+				display: 'block',
+				width: '100%',
+				position: 'absolute',
+				margin: '0 auto',
+				transform: 'translate(0, -3.4rem)',
+			}}
+		>Your shopping list is empty :(</Typography>
 		<div>
 			<Link to="/add-new-item">
-				<Button>
+				<Button variant="contained">
 					Add your first item
 				</Button>
 			</Link>

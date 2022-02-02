@@ -4,7 +4,7 @@ export function Icon(
 	{
 		name,
 	}: {
-		name: 'edit' | 'delete';
+		name: 'edit' | 'delete' | 'last_page';
 	},
 ) {
 	return <div className="material-icons">{name}</div>;

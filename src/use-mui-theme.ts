@@ -1,15 +1,22 @@
 import {createTheme} from '@mui/material';
+import React from 'react';
 
 declare module '@mui/material/styles' {
 	interface TypographyVariants {
 		primary: React.CSSProperties;
 		secondary: React.CSSProperties;
+		semibold: React.CSSProperties;
+		itemTitle: React.CSSProperties;
+		itemDescription: React.CSSProperties;
 	}
 
 	// Allow configuration using `createTheme`
 	interface TypographyVariantsOptions {
 		primary?: React.CSSProperties;
 		secondary?: React.CSSProperties;
+		semibold: React.CSSProperties;
+		itemTitle: React.CSSProperties;
+		itemDescription: React.CSSProperties;
 	}
 }
 
@@ -18,6 +25,9 @@ declare module '@mui/material/Typography' {
 	interface TypographyPropsVariantOverrides {
 		primary: true;
 		secondary: true;
+		semibold: true;
+		itemTitle: true;
+		itemDescription: true;
 	}
 }
 
@@ -54,10 +64,27 @@ const theme = createTheme({
 			fontFamily: '\'Nunito\', sans-serif',
 			fontSize: 16,
 		},
+		semibold: {
+			display: 'block',
+			fontFamily: '\'Nunito\', sans-serif',
+			fontSize: 18,
+			fontWeight: 600,
+		},
 		primary: {
 			display: 'block',
 			fontFamily: '\'Nunito\', sans-serif',
 			fontSize: 18,
+		},
+		itemTitle: {
+			display: 'block',
+			fontFamily: '\'Nunito\', sans-serif',
+			fontSize: 16,
+			fontWeight: 600,
+		},
+		itemDescription: {
+			display: 'block',
+			fontFamily: '\'Nunito\', sans-serif',
+			fontSize: 14,
 		},
 	},
 	components: {

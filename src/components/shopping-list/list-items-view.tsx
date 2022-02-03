@@ -1,12 +1,23 @@
-import {Button, Checkbox} from '@mui/material';
+import {Button, Checkbox, IconButton, Stack, Typography} from '@mui/material';
 import {map, noop, reject} from 'lodash';
 import {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
 import {usePutShoppingListItemService} from '../../services/shopping-list-services';
 import {Icon} from '../icon';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
+
+const listItemStyles = (purchased: boolean): React.CSSProperties => ({
+	width: '100%',
+	border: '0.05rem solid #D5DFE9',
+	borderRadius: '4px',
+	boxSizing: 'border-box',
+	padding: '2.4rem 2rem 2rem 2.1rem',
+	background: purchased
+		? 'rgba(213, 223, 233, 0.17)'
+		: '',
+});
 
 function ListItem({
 	id,
@@ -19,29 +30,49 @@ function ListItem({
 	handleDelete: () => void;
 	handlePurchasedToggle: () => void;
 } & ShoppingListItem) {
-	return <div>
-		<Checkbox
-			checked={purchased}
-			onChange={handlePurchasedToggle}
-		/>
-		<span>{name}</span>
-		<span>{description}</span>
-		<Link to={`/edit-list-item/${id}`}>
-			<Button>
-				<Icon name="edit" />
-			</Button>
-		</Link>
-		<Button
-			onClick={handleDelete}
-		>
-			<Icon name="delete" />
-		</Button>
-	</div>;
+	const navigate = useNavigate();
+	return <Stack
+		style={listItemStyles(purchased)}
+		direction="row"
+		alignItems="center"
+		justifyContent="space-between"
+	>
+		<Stack direction="row" alignItems="center">
+			<Checkbox
+				checked={purchased}
+				onChange={handlePurchasedToggle}
+			/>
+			<Stack>
+				<Typography variant="itemTitle">{name}</Typography>
+				<Typography variant="itemDescription">{description}</Typography>
+			</Stack>
+		</Stack>
+		<Stack direction="row">
+			<IconButton onClick={() => {
+				navigate(`/edit-list-item/${id}`);
+			}}>
+				<Icon name="edit" outlined />
+			</IconButton>
+
+			<IconButton
+				onClick={handleDelete}
+			>
+				<Icon name="delete" outlined />
+			</IconButton>
+		</Stack>
+	</Stack>;
 }
+
+const listStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+	width: '90vw',
+	maxWidth: '102.5rem',
+	marginTop: '3.5rem',
+};
 
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	const dispatch = useShoppingListDispatch();
 	const putShoppingListItem = usePutShoppingListItemService(dispatch);
+	const navigate = useNavigate();
 	const handleDelete = (listItem: ShoppingListItem) => () => {
 		setModalOpen(false);
 		void putShoppingListItem({
@@ -68,22 +99,30 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 		setToDeleteItem(listItem);
 	};
 
-	return <div>
-		Your Items
-		<Link to="/add-new-item">
-			<Button>Add Item</Button>
-		</Link>
-		{map(
-			reject(listItems, 'deleted'),
-			item => <ListItem
-				key={item.id}
-				{...item}
-				handlePurchasedToggle={handlePurchasedToggle(item)}
-				handleDelete={openDeleteModal(item)}
-			/>,
-		)}
+	return <>
+		<Stack style={listStyles} justifyContent="flex-start" spacing={2}>
+			<Stack
+				direction="row"
+				alignItems="center"
+				justifyContent="space-between"
+			>
+				<Typography variant="semibold">Your Items</Typography>
+				<Button onClick={() => {
+					navigate('/add-new-item');
+				}}>Add Item</Button>
+			</Stack>
+			{map(
+				reject(listItems, 'deleted'),
+				item => <ListItem
+					key={item.id}
+					{...item}
+					handlePurchasedToggle={handlePurchasedToggle(item)}
+					handleDelete={openDeleteModal(item)}
+				/>,
+			)}
+		</Stack>
 		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteItem ? handleDelete(toDeleteItem) : noop} />
-	</div>;
+	</>;
 }
 
 export default ListItemsView;

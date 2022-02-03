@@ -31,6 +31,7 @@ function ListItem({
 	const navigate = useNavigate();
 	return <Stack
 		pt={2.4} pr={2} pb={2} pl={2.1}
+		boxSizing="border-box"
 		style={listItemStyles(purchased)}
 		direction="row"
 		alignItems="center"

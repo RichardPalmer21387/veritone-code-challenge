@@ -8,6 +8,7 @@ export const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	color: 'white',
 	display: 'flex',
 	height: '64px',
+	minHeight: '64px', // Fix for height scaling with vh in firefox.
 	paddingLeft: '30px',
 	width: '100%',
 };

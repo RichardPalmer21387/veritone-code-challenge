@@ -1,4 +1,4 @@
-import {Drawer, IconButton, Typography} from '@mui/material';
+import {Box, Drawer, IconButton, Typography} from '@mui/material';
 import React, {PropsWithChildren} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Icon} from '../icon';
@@ -9,12 +9,15 @@ const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	width: '100%',
+	maxWidth: '56rem',
 	height: '64px',
 	background: '#FAFAFA',
 	borderBottom: '0.05rem solid #D5DFE9',
 	textTransform: 'uppercase',
 	padding: '0 2rem 0 3rem',
 	boxSizing: 'border-box',
+	position: 'fixed',
+	zIndex: 10,
 };
 
 const drawerStyles = {
@@ -30,7 +33,7 @@ export function SlideInView({children, open}: PropsWithChildren<{open: boolean}>
 		hideBackdrop
 		open={open}
 	>
-		<div className="slide-in-content-wrapper" style={drawerStyles}>
+		<Box className="slide-in-content-wrapper" style={drawerStyles}>
 			<header style={headerStyles}>
 				<Typography variant="h1">Shopping List</Typography>
 				<IconButton
@@ -43,8 +46,10 @@ export function SlideInView({children, open}: PropsWithChildren<{open: boolean}>
 					<Icon name="last_page"/>
 				</IconButton>
 			</header>
-			{children}
-		</div>
+			<Box pt={5.6}>
+				{children}
+			</Box>
+		</Box>
 	</Drawer>;
 }
 

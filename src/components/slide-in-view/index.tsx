@@ -9,7 +9,7 @@ const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	alignItems: 'center',
 	justifyContent: 'space-between',
 	width: '100%',
-	height: '6.4rem',
+	height: '64px',
 	background: '#FAFAFA',
 	borderBottom: '0.05rem solid #D5DFE9',
 	textTransform: 'uppercase',

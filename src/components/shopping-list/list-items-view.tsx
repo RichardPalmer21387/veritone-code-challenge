@@ -1,4 +1,4 @@
-import {Button, Checkbox, IconButton, Stack, Typography} from '@mui/material';
+import {Box, Button, Checkbox, IconButton, Stack, Typography} from '@mui/material';
 import {map, noop, reject} from 'lodash';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
@@ -12,8 +12,6 @@ const listItemStyles = (purchased: boolean): React.CSSProperties => ({
 	width: '100%',
 	border: '0.05rem solid #D5DFE9',
 	borderRadius: '4px',
-	boxSizing: 'border-box',
-	padding: '2.4rem 2rem 2rem 2.1rem',
 	background: purchased
 		? 'rgba(213, 223, 233, 0.17)'
 		: '',
@@ -32,6 +30,7 @@ function ListItem({
 } & ShoppingListItem) {
 	const navigate = useNavigate();
 	return <Stack
+		pt={2.4} pr={2} pb={2} pl={2.1}
 		style={listItemStyles(purchased)}
 		direction="row"
 		alignItems="center"
@@ -66,7 +65,6 @@ function ListItem({
 const listStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
 	width: '90vw',
 	maxWidth: '102.5rem',
-	marginTop: '3.5rem',
 };
 
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
@@ -99,8 +97,8 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 		setToDeleteItem(listItem);
 	};
 
-	return <>
-		<Stack style={listStyles} justifyContent="flex-start" spacing={2}>
+	return <Box style={listStyles} my={2} pt={3}>
+		<Stack justifyContent="flex-start" spacing={2}>
 			<Stack
 				direction="row"
 				alignItems="center"
@@ -120,9 +118,10 @@ export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>)
 					handleDelete={openDeleteModal(item)}
 				/>,
 			)}
+			<Box p={1}></Box>
 		</Stack>
 		<ConfirmDeleteModal open={modalOpen} closeModal={closeModal} confirmDelete={toDeleteItem ? handleDelete(toDeleteItem) : noop} />
-	</>;
+	</Box>;
 }
 
 export default ListItemsView;

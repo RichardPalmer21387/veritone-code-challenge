@@ -1,4 +1,4 @@
-import {SxProps, Modal, Backdrop, Fade, Box, Typography, ButtonGroup, Button} from '@mui/material';
+import {SxProps, Modal, Backdrop, Fade, Box, Typography, Button, Stack} from '@mui/material';
 import React from 'react';
 
 const style: SxProps = {
@@ -31,16 +31,16 @@ export function ConfirmDeleteModal({open, closeModal, confirmDelete}: {
 	>
 		<Fade in={open}>
 			<Box sx={style}>
-				<Typography id="transition-modal-title" variant="h6" component="h2">
+				<Typography id="transition-modal-title" variant="primary" component="h2">
 					Delete Item?
 				</Typography>
-				<Typography id="transition-modal-description" sx={{mt: 2}}>
+				<Typography id="transition-modal-description" variant="secondary" sx={{mt: 2}}>
 					Are you sure you want to delete this item? This can not be undone.
 				</Typography>
-				<ButtonGroup>
-					<Button onClick={closeModal}>Cancel</Button>
-					<Button onClick={confirmDelete}>Delete</Button>
-				</ButtonGroup>
+				<Stack direction="row" spacing={2} pt={3} justifyContent="flex-end">
+					<Button color="secondary" onClick={closeModal}>Cancel</Button>
+					<Button color="primary" onClick={confirmDelete}>Delete</Button>
+				</Stack>
 			</Box>
 		</Fade>
 	</Modal>;

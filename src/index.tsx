@@ -4,6 +4,7 @@ import {BrowserRouter} from 'react-router-dom';
 import App from './app';
 import {AppProvider} from './contexts/app-context';
 import reportWebVitals from './report-web-vitals';
+import logWelcomeMessage, {} from './utils/console-message';
 
 ReactDOM.render(
 	<React.StrictMode>
@@ -15,6 +16,8 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.querySelector('#root'),
 );
+
+logWelcomeMessage();
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

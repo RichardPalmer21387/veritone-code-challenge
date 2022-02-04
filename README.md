@@ -14,12 +14,16 @@ The database and table will need to be setup locally with the correct structure 
 
 `PGUSER`, `PGPASSWORD`, and `PGDATABASE` environment variables will need to be setup before running this app.
 
+
+**windows power shell:**
 | action | command |
-|-------------|--------|---------|
-|<td colspan=2>**windows power shell**
+|--------|---------|
 |add env variables command template|`$env:PGUSER="[user with read/write]"; $env:PGPASSWORD="[password for user]"; $env:PGDATABASE="[your database name]"`|
 |remove env variables command|`Remove-Item Env:\PGUSER; Remove-Item Env:\PGPASSWORD; Remove-Item Env:\PGDATABASE;`|
-|<td colspan=2>**mac terminal**
+
+**mac terminal:**
+| action | command |
+|--------|---------|
 |prepend env variables to the start command.|`PGUSER=[user with read/write];PGPASSWORD=[password for user];PGDATABASE=[your database name];npm start`|
 
 #### Table structure

@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import {ShoppingListItem} from '../../../models/shopping-list-models';
-import {usePutShoppingListItemService} from '../../../services/shopping-list-services';
+import ShoppingListServices from '../../../services/shopping-list-services';
 import CommonFormElements from './common-form-elements';
 
 export function EditItemForm({
@@ -13,7 +13,7 @@ export function EditItemForm({
 	item: ShoppingListItem;
 }) {
 	const dispatch = useShoppingListDispatch();
-	const putShoppingListItem = usePutShoppingListItemService(dispatch);
+	const putShoppingListItem = ShoppingListServices.usePutShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
 	const {spacing} = useTheme();

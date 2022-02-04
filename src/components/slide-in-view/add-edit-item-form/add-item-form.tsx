@@ -3,12 +3,12 @@ import {isEmpty, size} from 'lodash';
 import {FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
-import {usePostNewShoppingListItemService} from '../../../services/shopping-list-services';
+import ShoppingListServices from '../../../services/shopping-list-services';
 import CommonFormElements from './common-form-elements';
 
 export function AddItemForm() {
 	const dispatch = useShoppingListDispatch();
-	const postNewShoppingListItem = usePostNewShoppingListItemService(dispatch);
+	const postNewShoppingListItem = ShoppingListServices.usePostNewShoppingListItemService(dispatch);
 
 	const navigate = useNavigate();
 	const {spacing} = useTheme();

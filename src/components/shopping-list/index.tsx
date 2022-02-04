@@ -3,7 +3,7 @@ import log from 'loglevel';
 import React, {useEffect} from 'react';
 import {useAppState} from '../../contexts/app-context';
 import {useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
-import {useLoadShoppingListService} from '../../services/shopping-list-services';
+import ShoppingListServices from '../../services/shopping-list-services';
 import {headerStyles} from '../header';
 import Spinner from '../spinner';
 import AddFirstItemView from './add-first-item-view';
@@ -20,7 +20,7 @@ export function ShoppingList() {
 	const {localDB} = useAppState();
 	const {isLoading, listItems} = useShoppingListState();
 	const dispatch = useShoppingListDispatch();
-	const loadShoppingListItems = useLoadShoppingListService(dispatch);
+	const loadShoppingListItems = ShoppingListServices.useLoadShoppingListService(dispatch);
 
 	useEffect(() => {
 		if (!isNil(localDB)) {

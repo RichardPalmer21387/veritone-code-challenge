@@ -4,7 +4,7 @@ import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
-import {usePutShoppingListItemService} from '../../services/shopping-list-services';
+import ShoppingListServices from '../../services/shopping-list-services';
 import {Icon} from '../icon';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 
@@ -70,7 +70,7 @@ const listStyles: React.CSSProperties = {
 
 export function ListItemsView({listItems}: Pick<ShoppingListState, 'listItems'>) {
 	const dispatch = useShoppingListDispatch();
-	const putShoppingListItem = usePutShoppingListItemService(dispatch);
+	const putShoppingListItem = ShoppingListServices.usePutShoppingListItemService(dispatch);
 	const navigate = useNavigate();
 	const handleDelete = (listItem: ShoppingListItem) => () => {
 		setModalOpen(false);

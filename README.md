@@ -1,3 +1,44 @@
+# Veritone full-stack code challenge submission.
+
+This is a submission for the veritone interview code challenge.  
+
+## Requirements
+
+This project includes an express backend with node-postgres to interact with an existing postgres database. You will need to create this database and supply the needed credentials.
+
+### PostgreSQL DB
+
+The database and table will need to be setup locally with the correct structure and a set of environment variables will need to be set before running the app.
+
+#### Environment variables
+
+`PGUSER`, `PGPASSWORD`, and `PGDATABASE` environment variables will need to be setup before running this app.
+
+| action | command |
+|-------------|--------|---------|
+|<td colspan=2>**windows power shell**
+|add env variables command template|`$env:PGUSER="[user with read/write]"; $env:PGPASSWORD="[password for user]"; $env:PGDATABASE="[your database name]"`|
+|remove env variables command|`Remove-Item Env:\PGUSER; Remove-Item Env:\PGPASSWORD; Remove-Item Env:\PGDATABASE;`|
+|<td colspan=2>**mac terminal**
+|prepend env variables to the start command.|`PGUSER=[user with read/write];PGPASSWORD=[password for user];PGDATABASE=[your database name];npm start`|
+
+#### Table structure
+
+```
+                                       Table "public.shoppinglistitems"
+   Column    |           Type           | Collation | Nullable |                    Default
+-------------+--------------------------+-----------+----------+-----------------------------------------------
+ id          | integer                  |           | not null | nextval('shoppinglistitems_id_seq'::regclass)
+ modified    | timestamp with time zone |           |          |
+ name        | character varying(30)    |           |          |
+ description | character varying(256)   |           |          |
+ quantity    | smallint                 |           |          |
+ purchased   | boolean                  |           |          |
+ deleted     | boolean                  |           |          |
+Indexes:
+    "shoppinglistitems_pkey" PRIMARY KEY, btree (id)
+```
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

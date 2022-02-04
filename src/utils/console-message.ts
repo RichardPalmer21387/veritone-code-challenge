@@ -8,7 +8,7 @@ export function logWelcomeMessage() {
  |_|  |_|\\___|_|_|\\___/      \\/ \\___|_|  |_|\\__\\___/|_| |_|\\___| |_____/ \\___| \\_/ |___(_)
                                                                                           
 %c I like to use a logger util to help keep my console clean and prevent any unwanted developer info messages from showing up in my projects unexpectly.
- Perhapes you have heard of loglevel? Highly recommended.  I have bound a reference to the window for your convenience.  If you would like to enable all logging at this time, just run:
+ Perhapes you have heard of loglevel? Highly recomend it.  I have bound a reference to the window for your convenience.  If you would like to enable all logging, just run:
 %c log.enableAll()
 %c And %cthank you%c for your time reviewing this!                                                                                      
 `,

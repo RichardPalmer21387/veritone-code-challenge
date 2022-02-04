@@ -58,7 +58,7 @@ export function EditItemForm({
 		navigate('/');
 	};
 
-	const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+	const styles: React.CSSProperties = {
 		padding: '2.8rem 2.6rem 2.1rem 3rem',
 	};
 

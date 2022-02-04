@@ -1,7 +1,7 @@
 import {Typography} from '@mui/material';
 import React from 'react';
 
-export const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+export const headerStyles: React.CSSProperties = {
 	alignItems: 'center',
 	backgroundColor: '#4D81B7',
 	boxSizing: 'border-box',

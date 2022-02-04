@@ -11,7 +11,7 @@ import {ShoppingListProvider} from './contexts/shopping-list-context';
 import useMuiTheme from './use-mui-theme';
 import {useIndexedDb} from './utils/use-indexeddb';
 
-const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+const styles: React.CSSProperties = {
 	alignItems: 'center',
 	display: 'flex',
 	flexDirection: 'column',

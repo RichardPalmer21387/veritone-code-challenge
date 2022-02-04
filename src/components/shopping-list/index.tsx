@@ -9,7 +9,7 @@ import Spinner from '../spinner';
 import AddFirstItemView from './add-first-item-view';
 import ListItemsView from './list-items-view';
 
-const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+const styles: React.CSSProperties = {
 	display: 'flex',
 	justifyContent: 'center',
 	minHeight: `calc(100vh - ${headerStyles?.height ?? 0})`, // Holds content height open for spinner ect.

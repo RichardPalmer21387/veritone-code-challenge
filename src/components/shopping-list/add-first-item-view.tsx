@@ -2,7 +2,7 @@ import {Button, Typography} from '@mui/material';
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-const styles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+const styles: React.CSSProperties = {
 	display: 'flex',
 	position: 'relative',
 	flexDirection: 'column',

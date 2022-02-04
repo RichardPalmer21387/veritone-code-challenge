@@ -63,7 +63,7 @@ function ListItem({
 	</Stack>;
 }
 
-const listStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+const listStyles: React.CSSProperties = {
 	width: '90vw',
 	maxWidth: '102.5rem',
 };

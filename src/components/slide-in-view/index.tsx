@@ -3,7 +3,7 @@ import React, {PropsWithChildren} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {Icon} from '../icon';
 
-const headerStyles: React.HTMLAttributes<HTMLDivElement>['style'] = {
+const headerStyles: React.CSSProperties = {
 	display: 'flex',
 	flexDirection: 'row',
 	alignItems: 'center',

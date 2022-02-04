@@ -43,6 +43,57 @@ Indexes:
     "shoppinglistitems_pkey" PRIMARY KEY, btree (id)
 ```
 
+## Recommended Dev stack used
+
+1. React 17+
+3. React Router
+4. Material UI
+5. Node
+6. Express
+7. Postgres
+
+## Other Dev stack used
+
+1. Typescript
+2. Express promise router
+3. XO
+4. lodash
+5. nodemon
+6. loglevel
+
+### Typescript
+
+I'm a big champion of Typescript and strict typing in general.  The benefit you get from the extra IDE helpers when using Typescript, I find result in a ultimate reduction of development time on a project, espically when you use strict typing and avoid the evil `any`.  I would honestly probably still be debugging this code challenge without it.
+
+### Express promise router
+
+A simple wrapper for Express 4's Router that allows middleware to return promises. This package makes it simpler to write route handlers for Express when dealing with promises by reducing duplicate code.
+
+### XO
+
+Opinionated but configurable ESLint wrapper with lots of goodies included. Enforces strict and readable code. I find that using an opinionated linter thats default configuration is managed by a community helps me to keep my code practices at their absolute best.
+
+### lodash
+
+A modern JavaScript utility library delivering modularity, performance & extras.  Lots of tools designed in a functional format that are immensly useful when working with react functional components and hooks.
+
+### nodemon
+
+nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected. Used to run the backend express app and watch that directory for changes while react dev server serves the local app and proxies `/api` requests to the express server.
+
+### loglevel
+
+Minimal lightweight simple logging for JavaScript. loglevel replaces console.log() and friends with level-based logging and filtering, with none of console's downsides.
+
+
+## Recommended tools
+
+This is the set of dev tools I used during development and will really make the project shine if you go poking around with it.
+
+1. vscode
+2. XO vscode plugin by Sam Verschueren
+3. enable `XO -fix` as formatter in workspace settings.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -73,16 +124,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
 
 ## Learn More
 

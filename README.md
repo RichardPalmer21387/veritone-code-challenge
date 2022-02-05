@@ -89,3 +89,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+# Todo
+
+1. Fix indexeddb sync with postgres.  Currently actions like post new item await a response from the backend code to get the id to add to the indexed db.  This means if a user doesn't have an internet connection, that call to the backend will never complete and the item will never be added.
+    - [ ] Change sync to not be so dependent on id.
+    - [ ] Change actions to be offline first.
+2. Need to write up some info on my react only minimal redux like state management with `prepareContext`.

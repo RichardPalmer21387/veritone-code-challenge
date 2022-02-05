@@ -96,3 +96,4 @@ To learn React, check out the [React documentation](https://reactjs.org/).
     - [ ] Change sync to not be so dependent on id.
     - [ ] Change actions to be offline first.
 2. Need to write up some info on my react only minimal redux like state management with `prepareContext`.
+3. Double check styles are matching demo at 1280 screen width per provided demo.

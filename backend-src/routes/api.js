@@ -44,8 +44,8 @@ router.post('/sync', async (request, response) => {
 						throw error;
 					}
 
-					const {insertedRows} = result.rows;
-					returnRows.push(insertedRows[0]);
+					const {rows} = result;
+					returnRows.push(rows[0]);
 				},
 			);
 		},

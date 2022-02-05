@@ -1,6 +1,6 @@
 import {Button, Typography} from '@mui/material';
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 
 const styles: React.CSSProperties = {
 	display: 'flex',
@@ -15,28 +15,33 @@ const styles: React.CSSProperties = {
 	width: '61.4rem',
 };
 
-export const AddFirstItemView = () => (
-	<div style={styles} className="add-first-item">
-		<Typography
-			variant="h6"
-			color="#87898C"
-			style={{
-				display: 'block',
-				width: '100%',
-				position: 'absolute',
-				margin: '0 auto',
-				transform: 'translate(0, -3.4rem)',
-			}}
-		>Your shopping list is empty :(
-		</Typography>
-		<div>
-			<Link to="/add-new-item">
-				<Button variant="contained">
+export const AddFirstItemView = () => {
+	const navigate = useNavigate();
+	return (
+		<div style={styles} className="add-first-item">
+			<Typography
+				variant="h6"
+				color="#87898C"
+				style={{
+					display: 'block',
+					width: '100%',
+					position: 'absolute',
+					margin: '0 auto',
+					transform: 'translate(0, -3.4rem)',
+				}}
+			>Your shopping list is empty :(
+			</Typography>
+			<div>
+				<Button
+					variant="contained" onClick={() => {
+						navigate('/add-new-item');
+					}}
+				>
 					Add your first item
 				</Button>
-			</Link>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 export default AddFirstItemView;

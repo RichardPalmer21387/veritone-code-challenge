@@ -1,6 +1,7 @@
 export interface AppState {
 	errorMessage: string | null;
 	localDB: IDBDatabase | null;
+	inDisconnectedState: boolean;
 }
 
 export interface IDBCursorWithShoppingListValues extends IDBCursor {

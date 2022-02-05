@@ -7,6 +7,7 @@ import {AppState} from '../models/app-models';
 const initialState: AppState = {
 	errorMessage: null,
 	localDB: null,
+	inDisconnectedState: false,
 };
 
 // Actions
@@ -15,15 +16,23 @@ export enum AppActionTypes {
 	SHOW_ERROR_MESSAGE_SNACKBAR = 'SHOW_ERROR_MESSAGE_SNACKBAR',
 	CLEAR_ERROR_MESSAGE_SNACKBAR = 'CLEAR_ERROR_MESSAGE_SNACKBAR',
 	SET_LOCAL_DB = 'SET_LOCAL_DB',
+	SET_APP_IS_DISCONNECTED = 'SET_APP_IS_DISCONNECTED',
+	SET_APP_IS_CONNECTED = 'SET_APP_IS_CONNECTED',
 }
 
 type ShowErrorMessageSnackbarAction = Action<AppActionTypes.SHOW_ERROR_MESSAGE_SNACKBAR, {message: string}>;
 type ClearErrorMessageSnackbarAction = Action<AppActionTypes.CLEAR_ERROR_MESSAGE_SNACKBAR>;
-type SetLocalDB = Action<AppActionTypes.SET_LOCAL_DB, {db: IDBDatabase}>;
+type SetLocalDBAction = Action<AppActionTypes.SET_LOCAL_DB, {db: IDBDatabase}>;
+type SetAppIsDisconnectedAction = Action<AppActionTypes.SET_APP_IS_DISCONNECTED>;
+type SetAppIsConnectedAction = Action<AppActionTypes.SET_APP_IS_CONNECTED>;
 
 // Interfaces & Types
 // =============================================================================
-type AppAction = ShowErrorMessageSnackbarAction | ClearErrorMessageSnackbarAction | SetLocalDB;
+type AppAction = ShowErrorMessageSnackbarAction
+| ClearErrorMessageSnackbarAction
+| SetLocalDBAction
+| SetAppIsDisconnectedAction
+| SetAppIsConnectedAction;
 
 // Reducer
 // =============================================================================
@@ -43,6 +52,16 @@ const reducer = (state: AppState, action: AppAction): AppState => {
 			return {
 				...state,
 				localDB: action.db,
+			};
+		case AppActionTypes.SET_APP_IS_CONNECTED:
+			return {
+				...state,
+				inDisconnectedState: false,
+			};
+		case AppActionTypes.SET_APP_IS_DISCONNECTED:
+			return {
+				...state,
+				inDisconnectedState: true,
 			};
 		default:
 			return state;

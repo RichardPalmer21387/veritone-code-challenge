@@ -4,11 +4,13 @@ import React, {FormEvent, useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import ShoppingListServices from '../../../services/shopping-list-services';
+import {useDisconnectionHandler} from '../../../utils/use-disconnection-handler';
 import CommonFormElements from './common-form-elements';
 
 export const AddItemForm = () => {
 	const dispatch = useShoppingListDispatch();
 	const postNewShoppingListItem = ShoppingListServices.usePostNewShoppingListItemService(dispatch);
+	const disconnectionHandler = useDisconnectionHandler(dispatch);
 
 	const navigate = useNavigate();
 	const {spacing} = useTheme();
@@ -53,11 +55,11 @@ export const AddItemForm = () => {
 			return;
 		}
 
-		void postNewShoppingListItem({
+		disconnectionHandler(async () => postNewShoppingListItem({
 			name,
 			description,
 			quantity: Number(quantity),
-		});
+		}));
 
 		navigate('/');
 	};

@@ -55,18 +55,23 @@ export function useLoadShoppingListService(dispatch: Dispatch<LoadShoppingItemsA
 						{
 							method: 'GET',
 						},
-					);
+					).catch(error => {
+						reject(error);
+						throw new Error(error);
+					});
 					// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 					const data: SyncResponseListItems | SyncResponseModified = await response.json();
 					log.info('Load list items /api/sync response data', data);
 					if (isSyncResponseModified(data)) {
 						log.info('Server responded with last modified timestamp.');
-						const newItems = filter(listItems, item => item.modified.isAfter(moment(data.modified)));
+						const newItems = filter(listItems, item => item.modified.isSameOrAfter(moment(data.modified)));
 						if (!isEmpty(newItems)) {
 							await fetch('/api/sync', {
 								method: 'POST',
 								body: JSON.stringify(newItems),
 								headers,
+							}).catch(error => {
+								reject(error);
 							});
 						}
 					} else {

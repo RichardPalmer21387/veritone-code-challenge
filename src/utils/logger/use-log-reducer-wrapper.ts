@@ -29,32 +29,34 @@ export function useLoggerReducerWrapper<T, ActionType extends Action>(
 
 		if (doLogging) {
 			const exeTime = timer.now() - startTime!;
-			groupCollapsed(
-				`%caction %c${action.type} %c@ ${timestamp!.format('kk:mm:ss:SSS')} (in ${(
-					exeTime
-				).toFixed(2)}ms)`,
-				'color:slateblue',
-				'color:teal',
-				'color:grey',
-			);
-			log.debug('%cprev state:%c%o', 'font-weight:bold; color:royalblue;', 'font-weight:normal;', preState!);
-			log.debug('%caction:%c%o', 'font-weight:bold; color:slateblue;', 'font-weight:normal;', action);
-			log.debug(
-				'%cnext state: %c%o',
-				'font-weight:bold; color:forestgreen;',
-				'font-weight:normal;',
-				nextState,
-			);
-			log.debug(
-				'%cdiff: %c%o',
-				'font-weight:bold; color:sienna;',
-				'font-weight:normal;',
-				JSON.stringify(difference(nextState, preState!), undefined, 4),
-			);
-			groupCollapsed('%cstack trace', 'color:slategrey;');
-			log.trace();
-			groupEnd();
-			groupEnd();
+			setTimeout(() => { // Making this async hurst the stack trace a bit but fixes a nasty bug when two actions are dispatched at the same time.
+				groupCollapsed(
+					`%caction %c${action.type} %c@ ${timestamp!.format('kk:mm:ss:SSS')} (in ${(
+						exeTime
+					).toFixed(2)}ms)`,
+					'color:slateblue',
+					'color:teal',
+					'color:grey',
+				);
+				log.debug('%cprev state:%c%o', 'font-weight:bold; color:royalblue;', 'font-weight:normal;', preState!);
+				log.debug('%caction:%c%o', 'font-weight:bold; color:slateblue;', 'font-weight:normal;', action);
+				log.debug(
+					'%cnext state: %c%o',
+					'font-weight:bold; color:forestgreen;',
+					'font-weight:normal;',
+					nextState,
+				);
+				log.debug(
+					'%cdiff: %c%o',
+					'font-weight:bold; color:sienna;',
+					'font-weight:normal;',
+					difference(nextState, preState!),
+				);
+				groupCollapsed('%cstack trace', 'color:slategrey;');
+				log.trace();
+				groupEnd();
+				groupEnd();
+			}, 1);
 		}
 
 		return nextState;

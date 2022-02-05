@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
 import ShoppingListServices from '../../services/shopping-list-services';
+import {useDisconnectionHandler} from '../../utils/use-disconnection-handler';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 import ListItem from './list-item';
 
@@ -16,20 +17,21 @@ const listStyles: React.CSSProperties = {
 export const ListItemsView = ({listItems}: Pick<ShoppingListState, 'listItems'>) => {
 	const dispatch = useShoppingListDispatch();
 	const putShoppingListItem = ShoppingListServices.usePutShoppingListItemService(dispatch);
+	const disconnectionHandler = useDisconnectionHandler(dispatch);
 	const navigate = useNavigate();
 	const handleDelete = (listItem: ShoppingListItem) => () => {
 		setModalOpen(false);
-		void putShoppingListItem({
+		disconnectionHandler(async () => putShoppingListItem({
 			...listItem,
 			deleted: true,
-		});
+		}));
 	};
 
 	const handlePurchasedToggle = (listItem: ShoppingListItem) => () => {
-		void putShoppingListItem({
+		disconnectionHandler(async () => putShoppingListItem({
 			...listItem,
 			purchased: !listItem.purchased,
-		});
+		}));
 	};
 
 	const [modalOpen, setModalOpen] = useState(false);

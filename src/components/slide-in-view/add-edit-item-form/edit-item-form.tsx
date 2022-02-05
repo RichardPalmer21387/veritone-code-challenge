@@ -5,6 +5,7 @@ import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import {ShoppingListItem} from '../../../models/shopping-list-models';
 import ShoppingListServices from '../../../services/shopping-list-services';
+import {useDisconnectionHandler} from '../../../utils/use-disconnection-handler';
 import CommonFormElements from './common-form-elements';
 
 export const EditItemForm = ({
@@ -14,6 +15,7 @@ export const EditItemForm = ({
 }) => {
 	const dispatch = useShoppingListDispatch();
 	const putShoppingListItem = ShoppingListServices.usePutShoppingListItemService(dispatch);
+	const disconnectionHandler = useDisconnectionHandler(dispatch);
 
 	const navigate = useNavigate();
 	const {spacing} = useTheme();
@@ -47,13 +49,13 @@ export const EditItemForm = ({
 			return;
 		}
 
-		void putShoppingListItem({
+		disconnectionHandler(async () => putShoppingListItem({
 			...item,
 			name,
 			description,
 			quantity: Number(quantity),
 			purchased,
-		});
+		}));
 
 		navigate('/');
 	};

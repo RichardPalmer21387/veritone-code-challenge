@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
-import App from './app';
+import {App} from './app';
 import {AppProvider} from './contexts/app-context';
+import {ShoppingListProvider} from './contexts/shopping-list-context';
 import reportWebVitals from './report-web-vitals';
 import logWelcomeMessage, {} from './utils/console-message';
 
@@ -10,7 +11,9 @@ ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
 			<AppProvider>
-				<App/>
+				<ShoppingListProvider>
+					<App/>
+				</ShoppingListProvider>
 			</AppProvider>
 		</BrowserRouter>
 	</React.StrictMode>,

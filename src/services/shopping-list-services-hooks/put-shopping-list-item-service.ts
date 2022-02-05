@@ -3,13 +3,13 @@ import log from 'loglevel';
 import moment from 'moment';
 import {Dispatch, useCallback} from 'react';
 import {useAppState} from '../../contexts/app-context';
-import {PatchShoppingItemAction, ShoppingListActionTypes} from '../../contexts/shopping-list-context';
+import {PutShoppingItemAction, ShoppingListActionTypes} from '../../contexts/shopping-list-context';
 import {isPutResponseId, PutResponseId, ShoppingListDBRow} from '../../models/api-models';
 import {ShoppingListItem} from '../../models/shopping-list-models';
 import {VERITONE_SHOPPING_LIST, VERITONE_SHOPPING_LIST_OBJECT_STORE} from '../../utils/use-indexeddb';
 import {fetchHeaders as headers} from '../../utils/util';
 
-export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingItemAction>): (updateListItem: ShoppingListItem) => Promise<void> {
+export function usePutShoppingListItemService(dispatch: Dispatch<PutShoppingItemAction>): (updateListItem: ShoppingListItem) => Promise<void> {
 	const {localDB} = useAppState();
 
 	return useCallback(async updateListItem => new Promise((resolve, reject) => {
@@ -58,7 +58,7 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 						const dbSyncTransaction = localDB.transaction([VERITONE_SHOPPING_LIST], 'readwrite');
 						// Report on the success of the transaction completing, when everything is done
 						dbSyncTransaction.oncomplete = () => {
-							log.info('DYSPATCH sync response from db to app state');
+							log.info('DISPATCH sync response from db to app state');
 							dispatch({
 								type: ShoppingListActionTypes.PUT_SHOPPING_ITEM,
 								listItem: {

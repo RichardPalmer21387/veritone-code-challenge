@@ -21,12 +21,12 @@ export enum ShoppingListActionTypes {
 
 export type DeleteShoppingItemAction = Action<ShoppingListActionTypes.DELETE_SHOPPING_ITEM, {itemId: string}>;
 export type LoadShoppingItemsAction = Action<ShoppingListActionTypes.LOAD_SHOPPING_ITEMS, {listItems: ShoppingListState['listItems']}>;
-export type PatchShoppingItemAction = Action<ShoppingListActionTypes.PUT_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
-export type PutNewShoppingItemAction = Action<ShoppingListActionTypes.POST_NEW_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
+export type PutShoppingItemAction = Action<ShoppingListActionTypes.PUT_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
+export type PostNewShoppingItemAction = Action<ShoppingListActionTypes.POST_NEW_SHOPPING_ITEM, {listItem: ShoppingListItem}>;
 
 // Interfaces & Types
 // =============================================================================
-type ShoppingListAction = DeleteShoppingItemAction | LoadShoppingItemsAction | PatchShoppingItemAction | PutNewShoppingItemAction;
+type ShoppingListAction = DeleteShoppingItemAction | LoadShoppingItemsAction | PutShoppingItemAction | PostNewShoppingItemAction;
 
 // Reducer
 // =============================================================================

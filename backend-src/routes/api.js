@@ -26,10 +26,10 @@ router.post('/sync', async (request, response) => {
 	console.log('SYNC INSERT:', request.body);
 	const returnRows = [];
 	const client = await db.getClient();
-	await forEach(
+	forEach(
 		rows,
 		async row => {
-			const {insertedRows} = await client.query(
+			client.query(
 				'INSERT INTO shoppinglistitems (modified, name, description, quantity, purchased, deleted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
 				[
 					row.modified,
@@ -39,17 +39,18 @@ router.post('/sync', async (request, response) => {
 					row.purchased,
 					row.deleted,
 				],
-				error => {
+				(error, result) => {
 					if (error) {
 						throw error;
 					}
+
+					const {insertedRows} = result.rows;
+					returnRows.push(insertedRows[0]);
 				},
 			);
-
-			returnRows.push(insertedRows[0]);
 		},
 	);
-	await client.release();
+	client.release();
 	response.status(201).json(returnRows);
 });
 
@@ -69,8 +70,7 @@ router.post('/', async (request, response) => {
 		item.quantity,
 		item.purchased,
 		item.deleted,
-	],
-	error => {
+	], error => {
 		if (error) {
 			throw error;
 		}
@@ -83,8 +83,7 @@ router.put('/:id', async (request, response) => {
 	const item = request.body;
 	const {rows} = await db.query('SELECT * FROM shoppinglistitems WHERE id=$1', [
 		request.params.id,
-	],
-	error => {
+	], error => {
 		if (error) {
 			throw error;
 		}

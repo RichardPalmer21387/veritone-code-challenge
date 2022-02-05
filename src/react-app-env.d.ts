@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/triple-slash-reference */
+/* eslint-disable @typescript-eslint/triple-slash-reference, no-unused-vars */
 /// <reference types="node" />
 /// <reference types="react" />
 /// <reference types="react-dom" />

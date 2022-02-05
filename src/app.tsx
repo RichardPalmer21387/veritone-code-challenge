@@ -20,27 +20,29 @@ const styles: React.CSSProperties = {
 	width: '100%',
 };
 
-export function App() {
+export const App = () => {
 	useIndexedDb();
 	const location = useLocation();
 	const addItemViewMatchPath = matchPath('/add-new-item', location.pathname);
 	const editItemViewMatchPath = matchPath('/edit-list-item/:id', location.pathname);
 
-	return <div className="App" style={styles}>
-		<ThemeProvider theme={useMuiTheme()}>
-			<Header />
-			<ShoppingListProvider>
-				<ShoppingList />
-				<SlideInView open={!isNil(addItemViewMatchPath)}>
-					<AddEditItemForm />
-				</SlideInView>
-				<SlideInView open={!isNil(editItemViewMatchPath)}>
-					<AddEditItemForm id={editItemViewMatchPath?.params.id} />
-				</SlideInView>
-			</ShoppingListProvider>
-			<ErrorSnackbar />
-		</ThemeProvider>
-	</div>;
-}
+	return (
+		<div className="App" style={styles}>
+			<ThemeProvider theme={useMuiTheme()}>
+				<Header/>
+				<ShoppingListProvider>
+					<ShoppingList/>
+					<SlideInView open={!isNil(addItemViewMatchPath)}>
+						<AddEditItemForm/>
+					</SlideInView>
+					<SlideInView open={!isNil(editItemViewMatchPath)}>
+						<AddEditItemForm id={editItemViewMatchPath?.params.id}/>
+					</SlideInView>
+				</ShoppingListProvider>
+				<ErrorSnackbar/>
+			</ThemeProvider>
+		</div>
+	);
+};
 
 export default App;

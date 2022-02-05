@@ -13,10 +13,10 @@ export const headerStyles: React.CSSProperties = {
 	width: '100%',
 };
 
-export function Header() {
-	return <header style={headerStyles} className="App-header">
+export const Header = () => (
+	<header style={headerStyles} className="App-header">
 		<Typography variant="h1">Shopping List</Typography>
-	</header>;
-}
+	</header>
+);
 
 export default Header;

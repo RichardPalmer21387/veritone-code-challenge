@@ -3,7 +3,7 @@ import {Alert, Snackbar} from '@mui/material';
 import {isEmpty} from 'lodash';
 import {AppActionTypes, useAppDispatch, useAppState} from '../../contexts/app-context';
 
-export function ErrorSnackbar() {
+export const ErrorSnackbar = () => {
 	const appState = useAppState();
 	const appDispatch = useAppDispatch();
 	const handleClose = () => {
@@ -18,9 +18,11 @@ export function ErrorSnackbar() {
 		message.current = appState.errorMessage ?? message.current; // Holds on to the message durring animate out.
 	}, [appState.errorMessage]);
 
-	return <Snackbar open={!isEmpty(appState.errorMessage)} autoHideDuration={6000} onClose={handleClose}>
-		<Alert severity="error" sx={{width: '100%'}} onClose={handleClose}>
-			{message.current}
-		</Alert>
-	</Snackbar>;
-}
+	return (
+		<Snackbar open={!isEmpty(appState.errorMessage)} autoHideDuration={6000} onClose={handleClose}>
+			<Alert severity="error" sx={{width: '100%'}} onClose={handleClose}>
+				{message.current}
+			</Alert>
+		</Snackbar>
+	);
+};

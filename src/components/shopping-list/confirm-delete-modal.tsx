@@ -13,21 +13,21 @@ const style: SxProps = {
 	p: 4,
 };
 
-export function ConfirmDeleteModal({open, closeModal, confirmDelete}: {
+export const ConfirmDeleteModal = ({open, closeModal, confirmDelete}: {
 	open: boolean;
 	closeModal: () => void;
 	confirmDelete: () => void;
-}) {
-	return <Modal
+}) => (
+	<Modal
+		closeAfterTransition
 		aria-labelledby="transition-modal-title"
 		aria-describedby="transition-modal-description"
 		open={open}
-		onClose={closeModal}
-		closeAfterTransition
 		BackdropComponent={Backdrop}
 		BackdropProps={{
 			timeout: 500,
 		}}
+		onClose={closeModal}
 	>
 		<Fade in={open}>
 			<Box sx={style}>
@@ -43,5 +43,5 @@ export function ConfirmDeleteModal({open, closeModal, confirmDelete}: {
 				</Stack>
 			</Box>
 		</Fade>
-	</Modal>;
-}
+	</Modal>
+);

@@ -2,7 +2,7 @@ import {FormControl, FormHelperText, Grid, InputLabel, MenuItem, Select, TextFie
 import {size} from 'lodash';
 import React from 'react';
 
-export function CommonFormElements({
+export const CommonFormElements = ({
 	name,
 	nameValid,
 	description,
@@ -22,8 +22,8 @@ export function CommonFormElements({
 	setName: (value: string) => void;
 	setDescription: (value: string) => void;
 	setQuantity: (value: string) => void;
-}) {
-	return <>
+}) => (
+	<>
 		<Grid item xs={12}>
 			<FormControl fullWidth error={!nameValid}>
 				<TextField
@@ -48,9 +48,9 @@ export function CommonFormElements({
 				}}
 			>
 				<TextField
+					multiline
 					id="description"
 					label="Description"
-					multiline
 					rows={5}
 					variant="outlined"
 					error={!descriptionValid}
@@ -90,7 +90,7 @@ export function CommonFormElements({
 				{!quantityValid && <FormHelperText>A quantity must be provided.</FormHelperText>}
 			</FormControl>
 		</Grid>
-	</>;
-}
+	</>
+);
 
 export default CommonFormElements;

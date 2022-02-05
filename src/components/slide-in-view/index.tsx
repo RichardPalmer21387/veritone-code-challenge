@@ -24,33 +24,33 @@ const drawerStyles = {
 	maxWidth: '56rem',
 };
 
-export function SlideInView({children, open}: PropsWithChildren<{open: boolean}>) {
+export const SlideInView = ({children, open}: PropsWithChildren<{open: boolean}>) => {
 	const navigate = useNavigate();
 
-	return <Drawer
-		anchor="right"
-		className="slide-in-view"
-		hideBackdrop
-		open={open}
-	>
-		<Box className="slide-in-content-wrapper" style={drawerStyles}>
-			<header style={headerStyles}>
-				<Typography variant="h1">Shopping List</Typography>
-				<IconButton
-					onClick={
-						() => {
+	return (
+		<Drawer
+			hideBackdrop
+			anchor="right"
+			className="slide-in-view"
+			open={open}
+		>
+			<Box className="slide-in-content-wrapper" style={drawerStyles}>
+				<header style={headerStyles}>
+					<Typography variant="h1">Shopping List</Typography>
+					<IconButton
+						onClick={() => {
 							navigate('/');
-						}
-					}
-				>
-					<Icon name="last_page"/>
-				</IconButton>
-			</header>
-			<Box pt={5.6}>
-				{children}
+						}}
+					>
+						<Icon name="last_page"/>
+					</IconButton>
+				</header>
+				<Box pt={5.6}>
+					{children}
+				</Box>
 			</Box>
-		</Box>
-	</Drawer>;
-}
+		</Drawer>
+	);
+};
 
 export default SlideInView;

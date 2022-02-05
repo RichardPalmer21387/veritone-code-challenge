@@ -1,13 +1,14 @@
+import React from 'react';
 import {find, isNil} from 'lodash';
 import {useShoppingListState} from '../../../contexts/shopping-list-context';
 import AddItemForm from './add-item-form';
 import EditItemForm from './edit-item-form';
 
-export function AddEditItemForm({
+export const AddEditItemForm = ({
 	id,
 }: {
 	id?: string;
-}) {
+}) => {
 	const shoppingListState = useShoppingListState();
 
 	if (id) {
@@ -19,10 +20,10 @@ export function AddEditItemForm({
 			return <>No shopping list item with ID found!</>;
 		}
 
-		return <EditItemForm item={itemToEdit} />;
+		return <EditItemForm item={itemToEdit}/>;
 	}
 
-	return <AddItemForm />;
-}
+	return <AddItemForm/>;
+};
 
 export default AddEditItemForm;

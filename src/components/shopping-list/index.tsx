@@ -16,7 +16,7 @@ const styles: React.CSSProperties = {
 	width: '100%',
 };
 
-export function ShoppingList() {
+export const ShoppingList = () => {
 	const {localDB} = useAppState();
 	const {isLoading, listItems} = useShoppingListState();
 	const dispatch = useShoppingListDispatch();
@@ -31,15 +31,17 @@ export function ShoppingList() {
 		}
 	}, [localDB, loadShoppingListItems]);
 
-	return <main style={styles} className="shopping-list">
-		{
-			isLoading
-				? <Spinner />
-				: (isEmpty(reject(listItems, 'deleted'))
-					? <AddFirstItemView />
-					: <ListItemsView listItems={listItems} />)
-		}
-	</main>;
-}
+	return (
+		<main style={styles} className="shopping-list">
+			{
+				isLoading
+					? <Spinner/>
+					: (isEmpty(reject(listItems, 'deleted'))
+						? <AddFirstItemView/>
+						: <ListItemsView listItems={listItems}/>)
+			}
+		</main>
+	);
+};
 
 export default ShoppingList;

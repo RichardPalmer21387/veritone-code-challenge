@@ -1,12 +1,12 @@
 import React from 'react';
 
-export function Spinner() {
-	return <div className="lds-ring">
-		<div></div>
-		<div></div>
-		<div></div>
-		<div></div>
-	</div>;
-}
+export const Spinner = () => (
+	<div className="lds-ring">
+		<div/>
+		<div/>
+		<div/>
+		<div/>
+	</div>
+);
 
 export default Spinner;

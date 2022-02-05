@@ -1,17 +1,17 @@
 import {Button, Checkbox, FormControl, FormControlLabel, Grid, Stack, useTheme} from '@mui/material';
 import {isEmpty, size} from 'lodash';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import {ShoppingListItem} from '../../../models/shopping-list-models';
 import ShoppingListServices from '../../../services/shopping-list-services';
 import CommonFormElements from './common-form-elements';
 
-export function EditItemForm({
+export const EditItemForm = ({
 	item,
 }: {
 	item: ShoppingListItem;
-}) {
+}) => {
 	const dispatch = useShoppingListDispatch();
 	const putShoppingListItem = ShoppingListServices.usePutShoppingListItemService(dispatch);
 
@@ -62,60 +62,62 @@ export function EditItemForm({
 		padding: '2.8rem 2.6rem 2.1rem 3rem',
 	};
 
-	return <form onSubmit={handleAdd}>
-		<Grid container spacing={spacing()} style={styles}>
-			<CommonFormElements
-				name={name}
-				nameValid={nameValid}
-				description={description}
-				descriptionValid={descriptionValid}
-				quantity={quantity}
-				quantityValid={quantityValid}
-				setName={setName}
-				setDescription={setDescription}
-				setQuantity={setQuantity}
-			/>
-			<Grid item xs={12}>
-				<FormControl
-					fullWidth
-				>
-					<FormControlLabel
-						label="Purchased"
-						control={
-							<Checkbox
-								checked={purchased}
-								onChange={() => {
-									setPurchased(!purchased);
-								}}
-							/>
-						}
-					/>
-				</FormControl>
-			</Grid>
-			<Grid item xs={12}>
-				<Stack
-					direction="row"
-					spacing={1}
-					justifyContent="flex-end"
-				>
-					<Button
-						onClick={() => {
-							navigate('/');
-						}}
-						color="secondary"
+	return (
+		<form onSubmit={handleAdd}>
+			<Grid container spacing={spacing()} style={styles}>
+				<CommonFormElements
+					name={name}
+					nameValid={nameValid}
+					description={description}
+					descriptionValid={descriptionValid}
+					quantity={quantity}
+					quantityValid={quantityValid}
+					setName={setName}
+					setDescription={setDescription}
+					setQuantity={setQuantity}
+				/>
+				<Grid item xs={12}>
+					<FormControl
+						fullWidth
 					>
-					Cancel
-					</Button>
-					<Button
-						type="submit"
-						onClick={handleAdd}
+						<FormControlLabel
+							label="Purchased"
+							control={
+								<Checkbox
+									checked={purchased}
+									onChange={() => {
+										setPurchased(!purchased);
+									}}
+								/>
+							}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12}>
+					<Stack
+						direction="row"
+						spacing={1}
+						justifyContent="flex-end"
 					>
-					Save Item
-					</Button>
-				</Stack>
+						<Button
+							color="secondary"
+							onClick={() => {
+								navigate('/');
+							}}
+						>
+							Cancel
+						</Button>
+						<Button
+							type="submit"
+							onClick={handleAdd}
+						>
+							Save Item
+						</Button>
+					</Stack>
+				</Grid>
 			</Grid>
-		</Grid>
-	</form>;
-}
+		</form>
+	);
+};
 
 export default EditItemForm;

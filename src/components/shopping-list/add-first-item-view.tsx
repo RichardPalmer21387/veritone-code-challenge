@@ -15,8 +15,8 @@ const styles: React.CSSProperties = {
 	width: '61.4rem',
 };
 
-export function AddFirstItemView() {
-	return <div style={styles} className="add-first-item">
+export const AddFirstItemView = () => (
+	<div style={styles} className="add-first-item">
 		<Typography
 			variant="h6"
 			color="#87898C"
@@ -27,7 +27,8 @@ export function AddFirstItemView() {
 				margin: '0 auto',
 				transform: 'translate(0, -3.4rem)',
 			}}
-		>Your shopping list is empty :(</Typography>
+		>Your shopping list is empty :(
+		</Typography>
 		<div>
 			<Link to="/add-new-item">
 				<Button variant="contained">
@@ -35,7 +36,7 @@ export function AddFirstItemView() {
 				</Button>
 			</Link>
 		</div>
-	</div>;
-}
+	</div>
+);
 
 export default AddFirstItemView;

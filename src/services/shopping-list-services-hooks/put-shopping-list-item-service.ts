@@ -18,6 +18,11 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 		} else {
 			// Get new modified moment.
 			let modified = moment();
+			// Create modifiable copy of updated list item
+			let resolvedUpdateListItem = {
+				...clone(updateListItem),
+				modified,
+			};
 
 			const putListItem = {
 				id: updateListItem.id,
@@ -33,11 +38,11 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 			const transaction = localDB.transaction([VERITONE_SHOPPING_LIST], 'readwrite');
 			// Report on the success of the transaction completing, when everything is done
 			transaction.oncomplete = () => {
+				log.info('DISPATCH local modifications to app state.');
 				dispatch({
 					type: ShoppingListActionTypes.PUT_SHOPPING_ITEM,
 					listItem: {
-						...updateListItem,
-						modified,
+						...resolvedUpdateListItem,
 					},
 				});
 
@@ -49,29 +54,27 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 				})
 					.then(async response => response.json())
 					.then((response: PutResponseId | ShoppingListDBRow) => {
-						// Create modifiable copy of updated list item
-						let responseUpdateListItem = clone(updateListItem);
 						// Open a read/write db transaction, ready for adding the data
-						const transaction = localDB.transaction([VERITONE_SHOPPING_LIST], 'readwrite');
+						const dbSyncTransaction = localDB.transaction([VERITONE_SHOPPING_LIST], 'readwrite');
 						// Report on the success of the transaction completing, when everything is done
-						transaction.oncomplete = () => {
+						dbSyncTransaction.oncomplete = () => {
+							log.info('DYSPATCH sync response from db to app state');
 							dispatch({
 								type: ShoppingListActionTypes.PUT_SHOPPING_ITEM,
 								listItem: {
-									...responseUpdateListItem,
-									modified,
+									...resolvedUpdateListItem,
 								},
 							});
 							resolve();
 						};
 
-						transaction.addEventListener('error', () => {
-							reject(transaction.error);
+						dbSyncTransaction.addEventListener('error', () => {
+							reject(dbSyncTransaction.error);
 						});
 
 						// Call an object store that's already been added to the database
 						log.info('PUT update data in indexeddb from response', response);
-						const objectStore = transaction.objectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE);
+						const objectStore = dbSyncTransaction.objectStore(VERITONE_SHOPPING_LIST_OBJECT_STORE);
 
 						if (isPutResponseId(response)) {
 							// Make a request to update our newItem object to the object store
@@ -86,7 +89,7 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 							modified = moment(response.modified);
 
 							// Update our local state to match latest data from server using last-modified conflict resolution.
-							responseUpdateListItem = {
+							resolvedUpdateListItem = {
 								...response,
 								id: response.id.toString(),
 								modified: moment(response.modified),
@@ -102,8 +105,6 @@ export function usePutShoppingListItemService(dispatch: Dispatch<PatchShoppingIt
 					.catch(error => {
 						reject(error);
 					});
-
-				resolve();
 			};
 
 			transaction.addEventListener('error', () => {

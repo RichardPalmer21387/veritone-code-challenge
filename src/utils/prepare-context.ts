@@ -30,7 +30,8 @@ export function prepareContext<State = Record<string, unknown>, T extends Action
 	// =============================================================================
 
 	const PreparedProvider: FC<PropsWithChildren<Record<string, unknown>>> = ({children}): ReactElement => {
-		const [state, dispatch] = useReducer(useLoggerReducerWrapper(reducer), initialState);
+		const wrappedReducer = useLoggerReducerWrapper(reducer);
+		const [state, dispatch] = useReducer(wrappedReducer, initialState);
 		return createElement(
 			StateContext.Provider,
 			{

@@ -33,6 +33,10 @@
 		"dotenv-expand": "^5.1.0",
 		"eslint": "^8.3.0",
 		"eslint-config-react-app": "^7.0.0",
+		"eslint-config-xo": "^0.39.0",
+		"eslint-config-xo-react": "^0.26.0",
+		"eslint-plugin-react": "^7.28.0",
+		"eslint-plugin-react-hooks": "^4.3.0",
 		"eslint-webpack-plugin": "^3.1.1",
 		"express-promise-router": "^4.1.1",
 		"file-loader": "^6.2.0",
@@ -84,11 +88,17 @@
 	},
 	"eslintConfig": {
 		"extends": [
-			"react-app",
+			"xo",
+			"xo-react",
 			"react-app/jest"
 		]
 	},
 	"xo": {
+		"extends": [
+			"xo",
+			"xo-react",
+			"react-app/jest"
+		],
 		"ignore": [
 			"./config/**",
 			"./scripts/**"
@@ -116,6 +126,9 @@
 				"files": [
 					"**.ts",
 					"**.tsx"
+				],
+				"env": [
+					"browser"
 				],
 				"rules": {
 					"@typescript-eslint/naming-convention": [

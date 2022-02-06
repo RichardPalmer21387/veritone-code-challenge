@@ -30,25 +30,56 @@ router.put('/sync', async (request, response) => {
 		rows,
 		async row => {
 			client.query(
-				'INSERT INTO shoppinglistitems (modified, name, description, quantity, purchased, deleted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ON CONFLICT DO UPDATE SET SET modified=$1, name=$2, description=$3, quantity=$4, purchased=$5, deleted=$6 WHERE ID=$7',
-				[
-					row.modified,
-					row.name,
-					row.description,
-					row.quantity,
-					row.purchased,
-					row.deleted,
-					row.id,
-				],
-				(error, result) => {
+				'SELECT * FROM shoppinglistitems WHERE ID=$1 LIMIT 1',
+				[row.id],
+				(error, results) => {
 					if (error) {
 						throw error;
 					}
 
-					const {rows} = result;
-					returnRows.push(rows[0]);
-				},
-			);
+					const {rows} = results;
+
+					if (isEmpty(rows)) {
+						client.query(
+							'INSERT INTO shoppinglistitems (modified, name, description, quantity, purchased, deleted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+							[
+								row.modified,
+								row.name,
+								row.description,
+								row.quantity,
+								row.purchased,
+								row.deleted,
+							],
+							(error, result) => {
+								if (error) {
+									throw error;
+								}
+
+								const {rows} = result;
+								returnRows.push(rows[0]);
+							},
+						);
+					} else {
+						client.query('UPDATE shoppinglistitems SET modified=$1, name=$2, description=$3, quantity=$4, purchased=$5, deleted=$6 WHERE ID=$7',
+							[
+								row.modified,
+								row.name,
+								row.description,
+								row.quantity,
+								row.purchased,
+								row.deleted,
+								row.id,
+							],
+							error => {
+								if (error) {
+									throw error;
+								}
+
+								returnRows.push(row);
+							},
+						);
+					}
+				});
 		},
 	);
 	client.release();

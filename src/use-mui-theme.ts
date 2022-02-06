@@ -48,7 +48,7 @@ const theme = createTheme({
 		},
 	},
 	typography: {
-		htmlFontSize: 12,
+		htmlFontSize: 12.7,
 		fontFamily: '\'Nunito\', sans-serif',
 		fontSize: 16,
 		h1: {
@@ -92,6 +92,7 @@ const theme = createTheme({
 			styleOverrides: {
 				root: {
 					boxShadow: 'none',
+					textTransform: 'none',
 				},
 			},
 		},
@@ -99,6 +100,9 @@ const theme = createTheme({
 			styleOverrides: {
 				root: {
 					boxShadow: 'none',
+					textTransform: 'none',
+					fontSize: 14,
+					fontWeight: 600,
 				},
 			},
 			defaultProps: {

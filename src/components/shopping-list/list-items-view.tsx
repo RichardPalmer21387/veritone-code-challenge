@@ -56,6 +56,7 @@ export const ListItemsView = ({listItems}: Pick<ShoppingListState, 'listItems'>)
 					direction="row"
 					alignItems="center"
 					justifyContent="space-between"
+					mb={-1}
 				>
 					<Typography variant="semibold">Your Items</Typography>
 					<Button onClick={() => {

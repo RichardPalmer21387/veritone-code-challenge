@@ -21,7 +21,7 @@ const useStyles = createUseStyles({
 		width: '100%',
 		position: 'absolute',
 		margin: '0 auto',
-		transform: 'translate(0, -3.4rem)',
+		transform: 'translate(0, -5.2rem)',
 	},
 });
 

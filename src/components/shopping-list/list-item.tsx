@@ -14,7 +14,16 @@ const useStyles = createUseStyles({
 	},
 	purchased: {
 		background: 'rgba(213, 223, 233, 0.17)',
+		'& $list-item-name': {
+			color: '#4D81B7',
+			textDecoration: 'line-through',
+		},
+		'& $list-item-description': {
+			textDecoration: 'line-through',
+		},
 	},
+	'list-item-name': {},
+	'list-item-description': {},
 });
 
 export const ListItem = ({
@@ -49,11 +58,11 @@ export const ListItem = ({
 					onChange={handlePurchasedToggle}
 				/>
 				<Stack>
-					<Typography variant="itemTitle">{name}</Typography>
-					<Typography variant="itemDescription">{description}</Typography>
+					<Typography className={classes['list-item-name']} variant="itemTitle">{name}</Typography>
+					<Typography className={classes['list-item-description']} variant="itemDescription">{description}</Typography>
 				</Stack>
 			</Stack>
-			<Stack direction="row">
+			<Stack direction="row" spacing={1}>
 				<IconButton onClick={() => {
 					navigate(`/edit-list-item/${id}`);
 				}}

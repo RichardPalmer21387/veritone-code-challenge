@@ -22,6 +22,8 @@ const useStyles = createUseStyles({
 		zIndex: 10,
 	},
 	'drawer-content-wrapper': {
+		height: '100%',
+		width: '100vw',
 		maxWidth: '56rem',
 	},
 });
@@ -48,7 +50,7 @@ export const SlideInView = ({children, open}: PropsWithChildren<{open: boolean}>
 						<Icon name="last_page"/>
 					</IconButton>
 				</header>
-				<Box pt={5.6}>
+				<Box pt={5.6} height="100%" display="flex" flexDirection="column" boxSizing="border-box">
 					{children}
 				</Box>
 			</Box>

@@ -1,4 +1,4 @@
-import {Button, Grid, Stack, Typography, useTheme} from '@mui/material';
+import {Box, Button, Stack, Typography, useTheme} from '@mui/material';
 import {isEmpty, size} from 'lodash';
 import React, {FormEvent, useState} from 'react';
 import {createUseStyles} from 'react-jss';
@@ -10,7 +10,13 @@ import CommonFormElements from './common-form-elements';
 
 const useStyles = createUseStyles({
 	'add-item-form': {
+		display: 'flex',
+		flexDirection: 'column',
+		flex: '1 0 auto',
+	},
+	'add-item-form-stack': {
 		padding: '2.8rem 2.6rem 2.1rem 3rem',
+		height: '100%',
 	},
 });
 
@@ -73,12 +79,12 @@ export const AddItemForm = () => {
 
 	const classes = useStyles();
 	return (
-		<form onSubmit={handleAdd}>
-			<Grid container spacing={spacing()} className={classes['add-item-form']}>
-				<Grid item xs={12}>
+		<form className={classes['add-item-form']} onSubmit={handleAdd}>
+			<Stack spacing={spacing()} className={classes['add-item-form-stack']}>
+				<Box>
 					<Typography variant="primary">Add an Item</Typography>
 					<Typography variant="secondary">Add your new item below</Typography>
-				</Grid>
+				</Box>
 				<CommonFormElements
 					name={name}
 					nameValid={nameValid}
@@ -90,31 +96,30 @@ export const AddItemForm = () => {
 					setDescription={handleSetDescription}
 					setQuantity={setQuantity}
 				/>
-				<Grid item xs={12}>
-					<Stack
-						direction="row"
-						spacing={1}
-						justifyContent="flex-end"
+				<Box flexGrow={1}/>
+				<Stack
+					direction="row"
+					spacing={1}
+					justifyContent="flex-end"
+				>
+					<Button
+						variant="contained"
+						color="secondary"
+						onClick={() => {
+							navigate('/');
+						}}
 					>
-						<Button
-							variant="contained"
-							color="secondary"
-							onClick={() => {
-								navigate('/');
-							}}
-						>
-							Cancel
-						</Button>
-						<Button
-							variant="contained"
-							type="submit"
-							onClick={handleAdd}
-						>
-							Add Task
-						</Button>
-					</Stack>
-				</Grid>
-			</Grid>
+						Cancel
+					</Button>
+					<Button
+						variant="contained"
+						type="submit"
+						onClick={handleAdd}
+					>
+						Add Task
+					</Button>
+				</Stack>
+			</Stack>
 		</form>
 	);
 };

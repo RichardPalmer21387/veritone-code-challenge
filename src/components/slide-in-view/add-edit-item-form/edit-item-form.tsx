@@ -1,4 +1,4 @@
-import {Button, Checkbox, FormControl, FormControlLabel, Grid, Stack, useTheme} from '@mui/material';
+import {Box, Button, Checkbox, FormControl, FormControlLabel, Stack, useTheme} from '@mui/material';
 import {isEmpty, size} from 'lodash';
 import React, {useState} from 'react';
 import {createUseStyles} from 'react-jss';
@@ -11,7 +11,13 @@ import CommonFormElements from './common-form-elements';
 
 const useStyles = createUseStyles({
 	'edit-item-form': {
+		display: 'flex',
+		flexDirection: 'column',
+		flex: '1 0 auto',
+	},
+	'edit-item-form-stack': {
 		padding: '2.8rem 2.6rem 2.1rem 3rem',
+		height: '100%',
 	},
 });
 
@@ -69,8 +75,8 @@ export const EditItemForm = ({
 
 	const classes = useStyles();
 	return (
-		<form onSubmit={handleAdd}>
-			<Grid container spacing={spacing()} className={classes['edit-item-form']}>
+		<form className={classes['edit-item-form']} onSubmit={handleAdd}>
+			<Stack spacing={spacing()} className={classes['edit-item-form-stack']}>
 				<CommonFormElements
 					name={name}
 					nameValid={nameValid}
@@ -82,46 +88,44 @@ export const EditItemForm = ({
 					setDescription={setDescription}
 					setQuantity={setQuantity}
 				/>
-				<Grid item xs={12}>
-					<FormControl
-						fullWidth
+
+				<FormControl
+					fullWidth
+				>
+					<FormControlLabel
+						label="Purchased"
+						control={
+							<Checkbox
+								checked={purchased}
+								onChange={() => {
+									setPurchased(!purchased);
+								}}
+							/>
+						}
+					/>
+				</FormControl>
+				<Box flexGrow={1}/>
+				<Stack
+					direction="row"
+					spacing={1}
+					justifyContent="flex-end"
+				>
+					<Button
+						color="secondary"
+						onClick={() => {
+							navigate('/');
+						}}
 					>
-						<FormControlLabel
-							label="Purchased"
-							control={
-								<Checkbox
-									checked={purchased}
-									onChange={() => {
-										setPurchased(!purchased);
-									}}
-								/>
-							}
-						/>
-					</FormControl>
-				</Grid>
-				<Grid item xs={12}>
-					<Stack
-						direction="row"
-						spacing={1}
-						justifyContent="flex-end"
+						Cancel
+					</Button>
+					<Button
+						type="submit"
+						onClick={handleAdd}
 					>
-						<Button
-							color="secondary"
-							onClick={() => {
-								navigate('/');
-							}}
-						>
-							Cancel
-						</Button>
-						<Button
-							type="submit"
-							onClick={handleAdd}
-						>
-							Save Item
-						</Button>
-					</Stack>
-				</Grid>
-			</Grid>
+						Save Item
+					</Button>
+				</Stack>
+			</Stack>
 		</form>
 	);
 };

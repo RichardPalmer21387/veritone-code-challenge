@@ -60,6 +60,7 @@ Indexes:
 4. lodash
 5. nodemon
 6. loglevel
+7. classnames
 
 ### Typescript
 
@@ -84,6 +85,10 @@ nodemon is a tool that helps develop node.js based applications by automatically
 ### loglevel
 
 Minimal lightweight simple logging for JavaScript. loglevel replaces console.log() and friends with level-based logging and filtering, with none of console's downsides.
+
+### classnames
+
+A simple JavaScript utility for conditionally joining classNames together.
 
 
 ## Recommended tools

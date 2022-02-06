@@ -34,7 +34,7 @@ The database and table will need to be setup locally with the correct structure 
 -------------+--------------------------+-----------+----------+-----------------------------------------------
  id          | integer                  |           | not null | nextval('shoppinglistitems_id_seq'::regclass)
  modified    | timestamp with time zone |           |          |
- name        | character varying(30)    |           |          |
+ name        | character varying(256)   |           |          |
  description | character varying(256)   |           |          |
  quantity    | smallint                 |           |          |
  purchased   | boolean                  |           |          |
@@ -61,6 +61,8 @@ Indexes:
 5. nodemon
 6. loglevel
 7. classnames
+8. indexeddb
+9. my custom `prepareContext` tool
 
 ### Typescript
 
@@ -89,6 +91,14 @@ Minimal lightweight simple logging for JavaScript. loglevel replaces console.log
 ### classnames
 
 A simple JavaScript utility for conditionally joining classNames together.
+
+### indexeddb
+
+I decided to go a offline first route with this.  As it said I should act as the product owner, I figured lots of shopping centers are blocking celular data plans in their stores so if this was going to be a useful app to checkoff items as you purchased them as the mockup inplies, I would need to enable this app to continue to function offline and sync its actions with the server once a connection was restored.
+
+### prepareContext
+
+So a couple of years back at my current position we made the switch to using typescript as a required part of our dev stack.  As it turns out, this createad a lot of headaches when working with redux.  Redux's typing just wouldn't stay consistent expically with thier `connect()` method. We also found that the philosophy of redux's design patterns led us to the unfortunate practice of having one giant monlithic app state instead of useing several more usage specific providers. It caused our team constant headaches.  So in the architectue meeting for our next big product we discussed what we could do to solve these issues and decided that with React's new context and reducer hooks, we could liekly recreate the core parts of redux that we liked in our own more typescript friendly way and cut out the redux dependency entirely.  And thats where prepareContext comes from.  It with our custom logger reproduces the core parts of redux with a typescript first mentality in a minimalistic way using react hooks.  Check out any of the context files to see what I mean.
 
 
 ## Recommended tools
@@ -142,6 +152,11 @@ To learn React, check out the [React documentation](https://reactjs.org/).
     - [ ] ~~Change sync to not be so dependent on id.~~
 	- [x] Setup recovery loop if user goes offline. (sync interval every 30s and before any new calls?)
     - [x] Change actions to be offline first.
-- [ ] Need to write up some info on my react only minimal redux like state management with `prepareContext`.
-- [ ] Double check styles are matching demo at 1280 screen width per provided demo.
+- [x] Need to write up some info on my react only minimal redux like state management with `prepareContext`.
+- [x] Double check styles are matching demo at 1280 screen width per provided demo.
 - [x] Change all styles to css is jsx
+
+# Questions?
+- Was that "Add Task" button intentional?
+- Prototype shows a select dropdown for the quantity.  I would like to change that to a type="number" input field.
+- Was the intention for the quantity functionality to append multiple items to the list?  Seems more likely we would want to display the quantity value in the list item somewhere?

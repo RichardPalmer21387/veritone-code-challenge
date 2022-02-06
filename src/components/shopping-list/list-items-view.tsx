@@ -1,6 +1,7 @@
 import {Box, Button, Stack, Typography} from '@mui/material';
 import {map, noop, reject} from 'lodash';
 import React, {useState} from 'react';
+import {createUseStyles} from 'react-jss';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../contexts/shopping-list-context';
 import {ShoppingListItem, ShoppingListState} from '../../models/shopping-list-models';
@@ -9,10 +10,12 @@ import {useDisconnectionHandler} from '../../utils/use-disconnection-handler';
 import {ConfirmDeleteModal} from './confirm-delete-modal';
 import ListItem from './list-item';
 
-const listStyles: React.CSSProperties = {
-	width: '90vw',
-	maxWidth: '102.5rem',
-};
+const useStyles = createUseStyles({
+	'list-stles': {
+		width: '90vw',
+		maxWidth: '102.5rem',
+	},
+});
 
 export const ListItemsView = ({listItems}: Pick<ShoppingListState, 'listItems'>) => {
 	const dispatch = useShoppingListDispatch();
@@ -45,8 +48,9 @@ export const ListItemsView = ({listItems}: Pick<ShoppingListState, 'listItems'>)
 		setToDeleteItem(listItem);
 	};
 
+	const classes = useStyles();
 	return (
-		<Box style={listStyles} my={2} pt={3}>
+		<Box className={classes['list-stles']} my={2} pt={3}>
 			<Stack justifyContent="flex-start" spacing={2}>
 				<Stack
 					direction="row"

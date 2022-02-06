@@ -1,32 +1,35 @@
 import {Box, Drawer, IconButton, Typography} from '@mui/material';
 import React, {PropsWithChildren} from 'react';
+import {createUseStyles} from 'react-jss';
 import {useNavigate} from 'react-router-dom';
 import {Icon} from '../icon';
 
-const headerStyles: React.CSSProperties = {
-	display: 'flex',
-	flexDirection: 'row',
-	alignItems: 'center',
-	justifyContent: 'space-between',
-	width: '100%',
-	maxWidth: '56rem',
-	height: '64px',
-	background: '#FAFAFA',
-	borderBottom: '0.05rem solid #D5DFE9',
-	textTransform: 'uppercase',
-	padding: '0 2rem 0 3rem',
-	boxSizing: 'border-box',
-	position: 'fixed',
-	zIndex: 10,
-};
-
-const drawerStyles = {
-	maxWidth: '56rem',
-};
+const useStyles = createUseStyles({
+	'drawer-header': {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		width: '100%',
+		maxWidth: '56rem',
+		height: '64px',
+		background: '#FAFAFA',
+		borderBottom: '0.05rem solid #D5DFE9',
+		textTransform: 'uppercase',
+		padding: '0 2rem 0 3rem',
+		boxSizing: 'border-box',
+		position: 'fixed',
+		zIndex: 10,
+	},
+	'drawer-content-wrapper': {
+		maxWidth: '56rem',
+	},
+});
 
 export const SlideInView = ({children, open}: PropsWithChildren<{open: boolean}>) => {
 	const navigate = useNavigate();
 
+	const classes = useStyles();
 	return (
 		<Drawer
 			hideBackdrop
@@ -34,8 +37,8 @@ export const SlideInView = ({children, open}: PropsWithChildren<{open: boolean}>
 			className="slide-in-view"
 			open={open}
 		>
-			<Box className="slide-in-content-wrapper" style={drawerStyles}>
-				<header style={headerStyles}>
+			<Box className={classes['drawer-content-wrapper']}>
+				<header className={classes['drawer-header']}>
 					<Typography variant="h1">Shopping List</Typography>
 					<IconButton
 						onClick={() => {

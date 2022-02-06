@@ -1,20 +1,22 @@
 import {isEmpty, isNil, reject} from 'lodash';
 import log from 'loglevel';
 import React, {useEffect} from 'react';
+import {createUseStyles} from 'react-jss';
 import {useAppState} from '../../contexts/app-context';
 import {useShoppingListDispatch, useShoppingListState} from '../../contexts/shopping-list-context';
 import ShoppingListServices from '../../services/shopping-list-services';
-import {headerStyles} from '../header';
 import Spinner from '../spinner';
 import AddFirstItemView from './add-first-item-view';
 import ListItemsView from './list-items-view';
 
-const styles: React.CSSProperties = {
-	display: 'flex',
-	justifyContent: 'center',
-	minHeight: `calc(100vh - ${headerStyles?.height ?? 0})`, // Holds content height open for spinner ect.
-	width: '100%',
-};
+const useStyles = createUseStyles({
+	'shopping-list': {
+		display: 'flex',
+		justifyContent: 'center',
+		minHeight: 'calc(100vh - 64px)', // Holds content height open for spinner ect.
+		width: '100%',
+	},
+});
 
 export const ShoppingList = () => {
 	const {localDB} = useAppState();
@@ -31,8 +33,9 @@ export const ShoppingList = () => {
 		}
 	}, [localDB, loadShoppingListItems]);
 
+	const classes = useStyles();
 	return (
-		<main style={styles} className="shopping-list">
+		<main className={classes['shopping-list']}>
 			{
 				isLoading
 					? <Spinner/>

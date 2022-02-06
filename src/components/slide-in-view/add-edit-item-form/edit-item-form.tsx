@@ -1,12 +1,19 @@
 import {Button, Checkbox, FormControl, FormControlLabel, Grid, Stack, useTheme} from '@mui/material';
 import {isEmpty, size} from 'lodash';
 import React, {useState} from 'react';
+import {createUseStyles} from 'react-jss';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import {ShoppingListItem} from '../../../models/shopping-list-models';
 import ShoppingListServices from '../../../services/shopping-list-services';
 import {useDisconnectionHandler} from '../../../utils/use-disconnection-handler';
 import CommonFormElements from './common-form-elements';
+
+const useStyles = createUseStyles({
+	'edit-item-form': {
+		padding: '2.8rem 2.6rem 2.1rem 3rem',
+	},
+});
 
 export const EditItemForm = ({
 	item,
@@ -60,13 +67,10 @@ export const EditItemForm = ({
 		navigate('/');
 	};
 
-	const styles: React.CSSProperties = {
-		padding: '2.8rem 2.6rem 2.1rem 3rem',
-	};
-
+	const classes = useStyles();
 	return (
 		<form onSubmit={handleAdd}>
-			<Grid container spacing={spacing()} style={styles}>
+			<Grid container spacing={spacing()} className={classes['edit-item-form']}>
 				<CommonFormElements
 					name={name}
 					nameValid={nameValid}

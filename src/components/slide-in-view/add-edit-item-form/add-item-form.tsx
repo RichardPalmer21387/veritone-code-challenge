@@ -1,11 +1,18 @@
 import {Button, Grid, Stack, Typography, useTheme} from '@mui/material';
 import {isEmpty, size} from 'lodash';
 import React, {FormEvent, useState} from 'react';
+import {createUseStyles} from 'react-jss';
 import {useNavigate} from 'react-router-dom';
 import {useShoppingListDispatch} from '../../../contexts/shopping-list-context';
 import ShoppingListServices from '../../../services/shopping-list-services';
 import {useDisconnectionHandler} from '../../../utils/use-disconnection-handler';
 import CommonFormElements from './common-form-elements';
+
+const useStyles = createUseStyles({
+	'add-item-form': {
+		padding: '2.8rem 2.6rem 2.1rem 3rem',
+	},
+});
 
 export const AddItemForm = () => {
 	const dispatch = useShoppingListDispatch();
@@ -64,13 +71,10 @@ export const AddItemForm = () => {
 		navigate('/');
 	};
 
-	const styles: React.CSSProperties = {
-		padding: '2.8rem 2.6rem 2.1rem 3rem',
-	};
-
+	const classes = useStyles();
 	return (
 		<form onSubmit={handleAdd}>
-			<Grid container spacing={spacing()} style={styles}>
+			<Grid container spacing={spacing()} className={classes['add-item-form']}>
 				<Grid item xs={12}>
 					<Typography variant="primary">Add an Item</Typography>
 					<Typography variant="secondary">Add your new item below</Typography>

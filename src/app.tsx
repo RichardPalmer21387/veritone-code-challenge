@@ -2,6 +2,9 @@ import {ThemeProvider} from '@mui/material';
 import {isNil, isNumber} from 'lodash';
 import React, {useEffect, useRef} from 'react';
 import {matchPath, useLocation} from 'react-router-dom';
+import jss from 'jss';
+import preset from 'jss-preset-default';
+import {createUseStyles} from 'react-jss';
 import {ErrorSnackbar} from './components/error-snackbar';
 import Header from './components/header';
 import ShoppingList from './components/shopping-list';
@@ -13,14 +16,18 @@ import {useLoadShoppingListService} from './services/shopping-list-services-hook
 import useMuiTheme from './use-mui-theme';
 import {useIndexedDb} from './utils/use-indexeddb';
 
-const styles: React.CSSProperties = {
-	alignItems: 'center',
-	display: 'flex',
-	flexDirection: 'column',
-	height: '100%',
-	justifyContent: 'flex-start',
-	width: '100%',
-};
+jss.setup(preset());
+
+const useStyles = createUseStyles<'app'>({
+	app: {
+		alignItems: 'center',
+		display: 'flex',
+		flexDirection: 'column',
+		height: '100%',
+		justifyContent: 'flex-start',
+		width: '100%',
+	},
+});
 
 export const App = () => {
 	useIndexedDb();
@@ -58,8 +65,9 @@ export const App = () => {
 		};
 	}, [inDisconnectedState, appDispatch, loadShoppingList]);
 
+	const classes = useStyles();
 	return (
-		<div className="App" style={styles}>
+		<div className={classes.app}>
 			<ThemeProvider theme={useMuiTheme()}>
 				<Header/>
 				<ShoppingList/>

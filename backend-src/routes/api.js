@@ -21,7 +21,7 @@ router.get('/sync/:modified', async (request, response) => {
 	}
 });
 
-router.post('/sync', async (request, response) => {
+router.put('/sync', async (request, response) => {
 	const rows = request.body;
 	console.log('SYNC INSERT:', request.body);
 	const returnRows = [];
@@ -30,7 +30,7 @@ router.post('/sync', async (request, response) => {
 		rows,
 		async row => {
 			client.query(
-				'INSERT INTO shoppinglistitems (modified, name, description, quantity, purchased, deleted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *',
+				'INSERT INTO shoppinglistitems (modified, name, description, quantity, purchased, deleted) VALUES ($1, $2, $3, $4, $5, $6) RETURNING * ON CONFLICT DO UPDATE SET SET modified=$1, name=$2, description=$3, quantity=$4, purchased=$5, deleted=$6 WHERE ID=$7',
 				[
 					row.modified,
 					row.name,
@@ -38,6 +38,7 @@ router.post('/sync', async (request, response) => {
 					row.quantity,
 					row.purchased,
 					row.deleted,
+					row.id,
 				],
 				(error, result) => {
 					if (error) {

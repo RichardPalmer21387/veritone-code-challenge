@@ -46,7 +46,7 @@ export const CommonFormElements = ({
 						variant="outlined"
 						value={name}
 						error={!nameValid}
-						helperText={!nameValid && 'A name is required.'}
+						helperText={!nameValid && 'A name must be provided and be less than 100 characters.'}
 						onChange={event => {
 							setName(event.target.value);
 						}}

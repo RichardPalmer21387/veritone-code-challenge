@@ -37,7 +37,7 @@ export const EditItemForm = ({
 
 	const handleAdd = () => {
 		let valid = true;
-		if (isEmpty(name)) {
+		if (isEmpty(name) || size(name) > 100) {
 			setNameValidation(false);
 			valid = false;
 		}

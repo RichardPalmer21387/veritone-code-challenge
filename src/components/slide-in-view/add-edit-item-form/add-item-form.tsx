@@ -43,7 +43,7 @@ export const AddItemForm = () => {
 		event.preventDefault();
 
 		let valid = true;
-		if (isEmpty(name)) {
+		if (isEmpty(name) || size(name) > 100) {
 			setNameValidation(false);
 			valid = false;
 		}

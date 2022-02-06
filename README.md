@@ -133,10 +133,10 @@ To learn React, check out the [React documentation](https://reactjs.org/).
 
 # Todo
 
-1. Fix indexeddb sync with postgres.  Currently actions like post new item await a response from the backend code to get the id to add to the indexed db.  This means if a user doesn't have an internet connection, that call to the backend will never complete and the item will never be added.
+- Fix indexeddb sync with postgres.  Currently actions like post new item await a response from the backend code to get the id to add to the indexed db.  This means if a user doesn't have an internet connection, that call to the backend will never complete and the item will never be added.
     - [ ] ~~Change sync to not be so dependent on id.~~
-	- [ ] Setup recovery loop if user goes offline. (sync interval every 30s and before any new calls?)
+	- [x] Setup recovery loop if user goes offline. (sync interval every 30s and before any new calls?)
     - [x] Change actions to be offline first.
-2. Need to write up some info on my react only minimal redux like state management with `prepareContext`.
-3. Double check styles are matching demo at 1280 screen width per provided demo.
-4. Change all styles to css is jsx
+- [ ] Need to write up some info on my react only minimal redux like state management with `prepareContext`.
+- [ ] Double check styles are matching demo at 1280 screen width per provided demo.
+- [x] Change all styles to css is jsx

@@ -48,9 +48,10 @@ Indexes:
 1. React 17+
 3. React Router
 4. Material UI
-5. Node
-6. Express
-7. Postgres
+5. JSS
+6. Node
+7. Express
+8. Postgres
 
 ## Other Dev stack used
 
